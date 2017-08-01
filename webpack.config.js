@@ -21,14 +21,14 @@ module.exports = {
         presets: ['react', 'es2015']
       }
     },
-      // {
-      //   test: /\.scss$/,
-      //   use: [
-      //     'style-loader',
-      //     'css-loader',
-      //     'sass-loader'
-      //   ]
-      // }
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      }
     ]
   },
   plugins: [
