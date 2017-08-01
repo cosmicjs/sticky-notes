@@ -1,0 +1,19 @@
+{
+  "name": "sticky-notes",
+  "version": "1.0.0",
+  "description": "Sticky Notes app built using react, redux & cosmic.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jazibsawar/sticky-notes.git"
+  },
+  "author": "Muhammad Musa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jazibsawar/sticky-notes/issues"
+  },
+  "homepage": "https://github.com/jazibsawar/sticky-notes#readme"
+}
