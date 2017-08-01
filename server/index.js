@@ -34,5 +34,5 @@ app.get('*', function (request, response) {
 });
 
 app.listen(PORT, function () {
-  console.log("Rockin out on port " + PORT + " homie");
+  console.log("Server running on " + PORT );
 });
