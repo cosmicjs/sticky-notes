@@ -1,47 +1,38 @@
-/* eslint consistent-return:0 */
-
 const express = require('express');
-const logger = require('./logger');
-
-const argv = require('minimist')(process.argv.slice(2));
-const setup = require('./middlewares/frontendMiddleware');
-const isDev = process.env.NODE_ENV !== 'production';
-const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false;
-const resolve = require('path').resolve;
 const app = express();
+const path = require('path');
+const volleyball = require('volleyball');
+const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 3000
+app.use(volleyball);
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-// If you need a backend, e.g. an API, add your custom backend-specific middleware here
-// app.use('/api', myApi);
+//serve up static files
+app.use(express.static(path.resolve(__dirname, '..', 'client')));
+app.use(express.static(path.resolve(__dirname, '..', 'node_modules')));
+// app.use(express.static(path.resolve(__dirname, '..', 'client', 'styles', 'mainSheet', 'main.css')));
 
-// In production we need to pass these values in instead of relying on webpack
-setup(app, {
-  outputPath: resolve(process.cwd(), 'build'),
-  publicPath: '/',
+// app.get('/client/styles/mainSheet', function (request, response){
+//   console.log("I HIT DA STYLES");
+//   response.sendFile(path.resolve(__dirname, '..', 'styles', 'mainSheet', 'main.css'))
+// });
+// app.use(express.static(path.resolve(__dirname, 'client', 'styles', 'mainSheet', 'main.css')));
+
+
+app.use(function (err, req, res, next) {
+  console.error(err);
+  console.error(err.stack);
+  res.status(err.status || 500).send(err.message || 'Internal server error.');
 });
 
-// get the intended host and port number, use localhost and port 3000 if not provided
-const customHost = argv.host || process.env.HOST;
-const host = customHost || null; // Let http.Server use its default IPv6/4 host
-const prettyHost = customHost || 'localhost';
 
-const port = argv.port || process.env.PORT || 3000;
+// handle every other route with index.html, which will contain
+// a script tag to our application's JavaScript file(s).
+app.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, '..', 'client', 'index.html'))
+});
 
-// Start your app.
-app.listen(port, host, (err) => {
-  if (err) {
-    return logger.error(err.message);
-  }
-
-  // Connect to ngrok in dev mode
-  if (ngrok) {
-    ngrok.connect(port, (innerErr, url) => {
-      if (innerErr) {
-        return logger.error(innerErr);
-      }
-
-      logger.appStarted(port, prettyHost, url);
-    });
-  } else {
-    logger.appStarted(port, prettyHost);
-  }
+app.listen(PORT, function () {
+  console.log("Server running on " + PORT );
 });
