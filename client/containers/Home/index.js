@@ -16,7 +16,8 @@ import {
 } from './actions';
 
 import {
-  selectNoteGroupModel
+  selectNoteGroups,
+  selectNoteGroupModel,
 } from './selectors';
 
 import Home from '../../components/Home';
@@ -28,6 +29,7 @@ export class HomeContainer extends React.Component {
   }
 
   render() {
+    console.log("NOTES: ",this.props.noteGroups.toJS())
     return (
       <div>
       <Home />
@@ -47,6 +49,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
+  noteGroups: selectNoteGroups(),
   noteGroupModel: selectNoteGroupModel(),
 });
 
