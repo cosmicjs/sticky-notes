@@ -1,8 +1,8 @@
 import React from 'react';
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
-import Home from './Home';
-import Group from './Group';
+import Home from './containers/Home';
+import Group from './containers/Group';
 
 const Routes = ({}) => {
   return (

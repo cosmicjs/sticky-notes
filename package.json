@@ -40,6 +40,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "styled-components": "^2.1.1",
