@@ -27,6 +27,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.17.2",
+    "cosmicjs": "^2.39.91",
     "css-loader": "^0.28.4",
     "express": "^4.15.3",
     "immutable": "^3.8.1",
