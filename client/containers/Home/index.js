@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 
 
 import {
-
+  getNoteGroups,
 } from './actions';
 
 import {
@@ -28,6 +28,9 @@ export class HomeContainer extends React.Component {
 
   }
 
+  componentWillMount() {
+    this.props.onGetNoteGroups();
+  }
   render() {
     console.log("NOTES: ",this.props.noteGroups.toJS())
     return (
@@ -44,6 +47,7 @@ HomeContainer.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
+    onGetNoteGroups: () => dispatch(getNoteGroups()),
     dispatch,
   };
 }
