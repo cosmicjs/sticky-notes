@@ -15,6 +15,9 @@ import {
   DELETE_NOTE,
   DELETE_NOTE_SUCCESS,
   DELETE_NOTE_FAIL,
+  ADD_MEDIA,
+  ADD_MEDIA_SUCCESS,
+  ADD_MEDIA_FAIL,
 } from './constants';
 
 
@@ -113,6 +116,28 @@ export function deleteNoteSuccess(index) {
 export function deleteNoteFail(error) {
   return {
     type: DELETE_NOTE_FAIL,
+    error,
+  };
+}
+
+
+export function addMedia(media) {
+  return {
+    type: ADD_MEDIA,
+    media,
+  };
+}
+
+export function addMediaSuccess(media) {
+  return {
+    type: ADD_MEDIA_SUCCESS,
+    media,
+  };
+}
+
+export function addMediaFail(error) {
+  return {
+    type: ADD_MEDIA_FAIL,
     error,
   };
 }

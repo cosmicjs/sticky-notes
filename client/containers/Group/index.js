@@ -15,6 +15,7 @@ import {
   editNote,
   deleteNote,
   addNote,
+  addMedia,
 } from './actions';
 
 import {
@@ -24,6 +25,7 @@ import {
   selectAddNoteStatus,
   selectEditNoteStatus,
   selectDeleteNoteStatus,
+  selectAddMediaStatus,
 } from './selectors';
 
 import Group from '../../components/Group';
@@ -62,6 +64,7 @@ function mapDispatchToProps(dispatch) {
     onAddNote: (note, id) => dispatch(addNote(note, id)),
     onEditNote: (note, slug, index) => dispatch(editNote(note, slug, index)),
     onDeleteNote: (slug, index) => dispatch(deleteNote(slug, index)),
+    onAddMedia: (media) => dispatch(addMedia(media)),
     dispatch,
   };
 }
@@ -73,6 +76,7 @@ const mapStateToProps = createStructuredSelector({
   addNoteStatus: selectAddNoteStatus(),
   editNoteStatus: selectEditNoteStatus(),
   deleteNoteStatus: selectDeleteNoteStatus(),
+  addMediaStatus: selectAddMediaStatus(),
 });
 
 // Wrap the component to inject dispatch and state into it
