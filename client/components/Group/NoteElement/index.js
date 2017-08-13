@@ -28,11 +28,11 @@ class Note extends Component {
         <h1>{note.get('title')}</h1>
         <small style={{ marginTop: "5vh", marginLeft: "1vw" }}>{note.get('slug')}</small>
         </div>
-        <input type="button" value="Delete" onClick={() => this.props.deleteNote(note.get('slug'), index)} />
-        <input type="button" value="Update" onClick={() => this.setState({ editMode: !editMode, editableTitle: note.get('title') })} />
+        <input type="button" value="Delete" className="btn btn-danger btn-md" onClick={() => this.props.deleteNote(note.get('slug'), index)} />
+        <input type="button" value="Update" className="btn btn-warning btn-md" onClick={() => this.setState({ editMode: !editMode, editableTitle: note.get('title') })} />
         <br />
-        {editMode && <span><input type="text" value={editableTitle} onChange={(e) => this.setState({ editableTitle: e.target.value })} />
-        <input type="button" value="Edit" onClick={this.editNote} /></span>}
+        {editMode && <span style={{ display: "flex" }}><input type="text" className="form-control" value={editableTitle} onChange={(e) => this.setState({ editableTitle: e.target.value })} />
+        <input type="button" className="btn btn-warning btn-md" value="Edit" onClick={this.editNote} /></span>}
       </div>
     )
   }
