@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   getNoteGroups,
   deleteNoteGroup,
+  addNoteGroup,
 } from './actions';
 
 import {
@@ -37,6 +38,7 @@ export class HomeContainer extends React.Component {
       <Home
         groups={this.props.noteGroups}
 
+        addGroup={this.props.onAddNoteGroup}
         deleteGroup={this.props.onDeleteNoteGroup}
       />
       </div>
@@ -51,6 +53,7 @@ HomeContainer.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     onGetNoteGroups: () => dispatch(getNoteGroups()),
+    onAddNoteGroup: (group) => dispatch(addNoteGroup(group)),
     onDeleteNoteGroup: (slug, index) => dispatch(deleteNoteGroup(slug, index)),
     dispatch,
   };

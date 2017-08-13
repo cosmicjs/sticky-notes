@@ -8,12 +8,15 @@ import config from '../../config';
 
 import {
   GET_NOTE_GROUPS,
+  ADD_NOTE_GROUP,
   DELETE_NOTE_GROUP,
 } from './constants';
 
 import {
   getNoteGroupsSuccess,
   getNoteGroupsFail,
+  addNoteGroupSuccess,
+  addNoteGroupFail,
   deleteNoteGroupSuccess,
   deleteNoteGroupFail
 } from './actions';
@@ -31,7 +34,6 @@ function getGROUPS(params) {
 
 }
 
-
 function deleteGROUP(params) {
   return new Promise(function(resolve, reject) {
     Cosmic.deleteObject(config, params, (err, res) => {
@@ -42,8 +44,21 @@ function deleteGROUP(params) {
       }
     });
   });
-
 }
+
+function addGROUP(params) {
+  return new Promise(function(resolve, reject) {
+    Cosmic.addObject(config, params, (err, res) => {
+      if (!err) {
+        resolve(res);
+      } else {
+        console.log(err)
+        reject(err);
+      }
+    });
+  });
+}
+
 export function* getNoteGroups() {
   const params = {
     type_slug: 'groups',
@@ -55,6 +70,20 @@ export function* getNoteGroups() {
     yield put(getNoteGroupsFail(groups.err));
   }
 
+}
+
+export function* addNoteGroup(action) {
+  const params = {
+    write_key: config.bucket.write_key,
+    type_slug: "groups",
+    title: action.group.title,
+  };
+  const group = yield call(addGROUP, params);
+  if(!group.err) {
+    yield put(addNoteGroupSuccess(group.object));
+  } else {
+    yield put(addNoteGroupFail(response.err));
+  }
 }
 
 export function* deleteNoteGroup(action) {
@@ -80,6 +109,7 @@ export function* deleteNoteGroup(action) {
  */
 export function* homeSagas() {
   yield fork(takeLatest, GET_NOTE_GROUPS, getNoteGroups);
+  yield fork(takeLatest, ADD_NOTE_GROUP, addNoteGroup);
   yield fork(takeLatest, DELETE_NOTE_GROUP, deleteNoteGroup);
 }
 
