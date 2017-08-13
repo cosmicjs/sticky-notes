@@ -7,7 +7,12 @@ class Group extends Component {
     super(props);
     this.state = {
       title: "",
+      selectedNote: null,
       openAddDialog: false,
+      openEditDialog: false,
+      note: {
+        title: "",
+      },
     }
   }
 
@@ -19,10 +24,28 @@ class Group extends Component {
     }, groupId);
     this.setState({ title: "", openAddDialog: false });
   }
+
+  editNote = () => {
+    const { note, selectedNote } = this.state;
+    const { state } = this;
+    this.props.editNote({
+      title: note.title,
+    }, note.slug, selectedNote);
+    this.setState({ ...state, note: { title: "" }, openEditDialog: false })
+  }
+
+  editOption = (note, selectedNote) => {
+    this.setState({
+      openEditDialog: true,
+      note: note.toJS(),
+      selectedNote,
+    });
+  }
+
   render() {
     const { notes } = this.props;
-    const { title, openAddDialog } = this.state;
-    console.log("NOTES: ",notes)
+    const { state } = this;
+    const { title, openAddDialog, openEditDialog, note } = this.state;
     return (
       <div>
       <input type="button" value="Add Note" onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg" />
@@ -32,6 +55,16 @@ class Group extends Component {
       >
           <input type="text" className="form-control" value={title} onChange={(e) => this.setState({ title: e.target.value })} /> <br />
           <input type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.addNote} />
+      </Dialog>
+
+
+
+      <Dialog
+        open={openEditDialog}
+        closeDialog={() => this.setState({ openEditDialog: false })}
+      >
+        <input type="text" value={note.title} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, title: e.target.value } })} />
+        <input type="button" value="Edit Note" className="btn btn-warning btn-lg" onClick={this.editNote} />
       </Dialog>
 
       <StickyNotes

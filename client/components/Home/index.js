@@ -43,7 +43,7 @@ class Home extends Component {
       openEditDialog: true,
       group: group.toJS(),
       selectedGroup,
-    }, () => console.log(this.state))
+    });
   }
   render() {
     const { groups } = this.props;
