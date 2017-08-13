@@ -7,11 +7,10 @@ class Group extends Component {
   render() {
     return (
       <div>
-        <h1>Here you go! Group {this.props.params.groupSlug} Page</h1>
+        <h1>Here you go! Group {this.props.groupSlug} Page</h1>
       </div>
     )
   }
 }
 
-// const mapState = ({}) => ({});
 export default Group;

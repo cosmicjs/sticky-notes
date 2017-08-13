@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import { Link } from 'react-router';
 class GroupElement extends Component {
   constructor(props){
     super(props);
@@ -23,7 +23,7 @@ class GroupElement extends Component {
     return (
       <div>
         <div style={{ display: "flex" }}>
-        <h1>{group.get('title')}</h1>
+        <Link to={`/group/${group.get('slug')}`}><h1>{group.get('title')}</h1></Link>
         <small style={{ marginTop: "8vh", marginLeft: "1vw" }}>{group.get('slug')}</small>
         </div>
         <input type="button" value="Delete" onClick={() => this.props.deleteGroup(group.get('slug'), index)} />
