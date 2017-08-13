@@ -12,6 +12,10 @@ export const ADD_NOTE_GROUP = 'sticky-notes/Home/ADD_NOTE_GROUP';
 export const ADD_NOTE_GROUP_SUCCESS = 'sticky-notes/Home/ADD_NOTE_GROUP_SUCCESS';
 export const ADD_NOTE_GROUP_FAIL = 'sticky-notes/Home/ADD_NOTE_GROUP_FAIL';
 
+export const EDIT_NOTE_GROUP = 'sticky-notes/Home/EDIT_NOTE_GROUP';
+export const EDIT_NOTE_GROUP_SUCCESS = 'sticky-notes/Home/EDIT_NOTE_GROUP_SUCCESS';
+export const EDIT_NOTE_GROUP_FAIL = 'sticky-notes/Home/EDIT_NOTE_GROUP_FAIL';
+
 export const DELETE_NOTE_GROUP = 'sticky-notes/Home/DELETE_NOTE_GROUP';
 export const DELETE_NOTE_GROUP_SUCCESS = 'sticky-notes/Home/DELETE_NOTE_GROUP_SUCCESS';
 export const DELETE_NOTE_GROUP_FAIL = 'sticky-notes/Home/DELETE_NOTE_GROUP_FAIL';

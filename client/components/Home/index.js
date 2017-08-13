@@ -29,6 +29,7 @@ class Home extends Component {
             key={`group_${i}`}
             group={group}
             index={i}
+            editGroup={this.props.editGroup}
             deleteGroup={this.props.deleteGroup}
           />
         ))

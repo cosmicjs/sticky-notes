@@ -7,6 +7,9 @@ import {
   ADD_NOTE_GROUP,
   ADD_NOTE_GROUP_SUCCESS,
   ADD_NOTE_GROUP_FAIL,
+  EDIT_NOTE_GROUP,
+  EDIT_NOTE_GROUP_SUCCESS,
+  EDIT_NOTE_GROUP_FAIL,
   DELETE_NOTE_GROUP,
   DELETE_NOTE_GROUP_SUCCESS,
   DELETE_NOTE_GROUP_FAIL,
@@ -25,6 +28,11 @@ const initialState = fromJS({
     addNoteGroupStatus: {
       adding: false,
       added: false,
+      error: false,
+    },
+    editNoteGroupStatus: {
+      editing: false,
+      edited: false,
       error: false,
     },
     deleteNoteGroupStatus: {
@@ -72,12 +80,28 @@ function homeReducer(state = initialState, action) {
         .setIn(['home', 'addNoteGroupStatus', 'added'], true)
         .setIn(['home', 'addNoteGroupStatus', 'error'], false)
         .updateIn(['home', 'noteGroups'], arr => arr.push(fromJS(action.group)));
-
     case ADD_NOTE_GROUP_FAIL:
       return state
         .setIn(['home', 'addNoteGroupStatus', 'adding'], false)
         .setIn(['home', 'addNoteGroupStatus', 'added'], false)
         .setIn(['home', 'addNoteGroupStatus', 'error'], action.error);
+
+    case EDIT_NOTE_GROUP:
+      return state
+        .setIn(['home', 'editNoteGroupStatus', 'editing'], true)
+        .setIn(['home', 'editNoteGroupStatus', 'edited'], false)
+        .setIn(['home', 'editNoteGroupStatus', 'error'], false);
+    case EDIT_NOTE_GROUP_SUCCESS:
+      return state
+        .setIn(['home', 'editNoteGroupStatus', 'editing'], false)
+        .setIn(['home', 'editNoteGroupStatus', 'edited'], true)
+        .setIn(['home', 'editNoteGroupStatus', 'error'], false)
+        .setIn(['home', 'noteGroups', action.index], fromJS(action.group));
+    case EDIT_NOTE_GROUP_FAIL:
+      return state
+        .setIn(['home', 'editNoteGroupStatus', 'editing'], false)
+        .setIn(['home', 'editNoteGroupStatus', 'edited'], false)
+        .setIn(['home', 'editNoteGroupStatus', 'error'], action.error);
 
     case DELETE_NOTE_GROUP:
       return state

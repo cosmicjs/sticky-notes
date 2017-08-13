@@ -25,6 +25,10 @@ const selectAddNoteGroupStatus = () => createSelector(
   (homeState) => homeState.get('addNoteGroupStatus')
 );
 
+const selectEditNoteGroupStatus = () => createSelector(
+  selectHomeState(),
+  (homeState) => homeState.get('editNoteGroupStatus')
+);
 
 const selectDeleteNoteGroupStatus = () => createSelector(
   selectHomeState(),
@@ -36,5 +40,6 @@ export {
   selectNoteGroupModel,
   selectGetNoteGroupStatus,
   selectAddNoteGroupStatus,
+  selectEditNoteGroupStatus,
   selectDeleteNoteGroupStatus,
 };

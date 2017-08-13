@@ -9,6 +9,9 @@ import {
   ADD_NOTE_GROUP,
   ADD_NOTE_GROUP_SUCCESS,
   ADD_NOTE_GROUP_FAIL,
+  EDIT_NOTE_GROUP,
+  EDIT_NOTE_GROUP_SUCCESS,
+  EDIT_NOTE_GROUP_FAIL,
   DELETE_NOTE_GROUP,
   DELETE_NOTE_GROUP_SUCCESS,
   DELETE_NOTE_GROUP_FAIL,
@@ -65,6 +68,30 @@ export function addNoteGroupFail(error) {
   };
 }
 
+
+export function editNoteGroup(group, slug, index) {
+  return {
+    type: EDIT_NOTE_GROUP,
+    group,
+    slug,
+    index,
+  };
+}
+
+export function editNoteGroupSuccess(group, index) {
+  return {
+    type: EDIT_NOTE_GROUP_SUCCESS,
+    group,
+    index,
+  };
+}
+
+export function editNoteGroupFail(error) {
+  return {
+    type: EDIT_NOTE_GROUP_FAIL,
+    error,
+  };
+}
 
 export function deleteNoteGroup(slug, index) {
   return {
