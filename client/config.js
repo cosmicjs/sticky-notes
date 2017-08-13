@@ -1,8 +1,7 @@
 export default {
   bucket: {
-    slug: process.env.COSMIC_BUCKET || 'todo-app',
-    type_slug: 'tasks',
-    read_key: process.env.COSMIC_READ_KEY,
-    write_key: process.env.COSMIC_WRITE_KEY
+    slug: process.env.COSMIC_BUCKET || 'sticky-note-app',
+    read_key: "ItwAtcwVfhWZeOU0y0rqvaIXavYTPYVdcvqUvWRnq2Orj27I03",
+    write_key: "AA6qKMjWLeCtdfnnNqCXr2l6RQHdYwiMeeyzH0IoeTvRX1dXMB",
   }
 }

@@ -28,11 +28,13 @@ export class HomeContainer extends React.Component {
 
   }
 
+
   componentWillMount() {
     this.props.onGetNoteGroups();
   }
   render() {
     console.log("NOTES: ",this.props.noteGroups.toJS())
+
     return (
       <div>
       <Home />

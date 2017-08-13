@@ -3,37 +3,50 @@
 
 import { takeLatest } from 'redux-saga';
 import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
-// import 'whatwg-fetch';
-
-// import request from 'utils/request';
+import Cosmic from 'cosmicjs';
+import config from '../../config';
 
 import {
   GET_NOTE_GROUPS,
 } from './constants';
 
+import {
+  getNoteGroupsSuccess,
+  getNoteGroupsFail,
+} from './actions';
 
-export function* getNoteGroups() {
-
-  const requestURL = 'api/users';
-  console.log(requestURL);
-  // const options = {
-  //   method: 'POST',
-  //   headers: {
-  //    'Content-Type': 'application/json'
-  //   },
-  //   body: sss
-  // };
-  // // Call our request helper (see 'utils/request')
-  // const user = yield call(request, requestURL, options);
-  //
-  // if (!user.err) {
-  //
-  //   yield put(setField(['profile'],user.data));
-  //   yield put(registerUserSuccess(user.data));
-  // } else {
-  //   yield put(registerUserFail(user.err.reason));
-  // }
+function* wow(objects) {
+  console.log(objects)
+  // put(getNoteGroupsSuccess(objects));
 }
+
+function getGROUPS(params) {
+  return new Promise(function(resolve, reject) {
+    Cosmic.getObjectType(config, params, (err, res) => {
+      if (!err) {
+        // console.log("FETCHED: ", res.objects)
+        resolve(res.objects.all);
+      } else {
+        reject(err);
+      }
+    });
+  });
+
+}
+export function* getNoteGroups() {
+  const params = {
+    type_slug: 'groups',
+  };
+  const groups = yield call(getGROUPS, params);
+  if(!groups.err) {
+    yield put(getNoteGroupsSuccess(groups));
+  } else {
+    yield put(getNoteGroupsFail(groups.err));
+  }
+
+}
+
+  // yield put(getNoteGroupsSuccess(res.objects.all));
 
 
 /**
