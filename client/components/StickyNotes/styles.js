@@ -35,7 +35,7 @@ export const Note = styled.div`
   -webkit-transform: rotate(${props => props.rotate}deg);
   -moz-transform: rotate(${props => props.rotate}deg);
 
-  a {
+  a, h4 {
     cursor: pointer;
   }
   small {
