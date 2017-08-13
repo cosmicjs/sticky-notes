@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import GroupElement from './GroupElement';
 import Dialog from '../Dialog';
+import StickyNotes from '../StickyNotes';
 
 class Home extends Component {
   constructor(props){
@@ -34,15 +35,11 @@ class Home extends Component {
         <input type="button" value="Add Group" className="btn btn-primary btn-lg" onClick={this.addGroup} />
       </Dialog>
       {
-        !!groups && groups.toArray().map((group, i) => (
-          <GroupElement
-            key={`group_${i}`}
-            group={group}
-            index={i}
-            editGroup={this.props.editGroup}
-            deleteGroup={this.props.deleteGroup}
-          />
-        ))
+        <StickyNotes
+          groups={groups}
+          editGroup={this.props.editGroup}
+          deleteGroup={this.props.deleteGroup}
+        />
       }
       </div>
     )
