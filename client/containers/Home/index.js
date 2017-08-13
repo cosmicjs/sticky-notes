@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 
-
 import {
   getNoteGroups,
 } from './actions';
@@ -23,21 +22,19 @@ import {
 import Home from '../../components/Home';
 
 export class HomeContainer extends React.Component {
-  constructor(props){
-    super(props);
-
-  }
-
 
   componentWillMount() {
     this.props.onGetNoteGroups();
   }
+  
   render() {
     console.log("NOTES: ",this.props.noteGroups.toJS())
 
     return (
       <div>
-      <Home />
+      <Home
+        groups={this.props.noteGroups}
+      />
       </div>
     );
   }

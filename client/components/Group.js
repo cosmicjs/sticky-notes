@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
 
 class Group extends Component {
   constructor(props){
@@ -15,4 +14,4 @@ class Group extends Component {
 }
 
 // const mapState = ({}) => ({});
-export default connect(null)(Group);
+export default Group;
