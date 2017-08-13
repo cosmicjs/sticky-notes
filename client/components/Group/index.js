@@ -28,7 +28,6 @@ class Group extends Component {
       <Dialog
         open={openAddDialog}
         closeDialog={() => this.setState({ openAddDialog: false })}
-        handleSubmit={() => this.setState({ openAddDialog: false })}
       >
           <input type="text" className="form-control" value={title} onChange={(e) => this.setState({ title: e.target.value })} /> <br />
           <input type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.addNote} />

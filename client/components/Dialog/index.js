@@ -8,16 +8,13 @@ class Dialog extends Component {
   }
 
 
-  handleClick = () => {
-    this.props.handleSubmit();
-  }
   handleClose = () => {
     this.props.closeDialog();
   }
   render() {
     const { open } = this.props;
     return (
-      <div onClick={this.handleClick}>
+      <div>
         {
           open &&
           <ModalContainer onClose={this.handleClose}>
