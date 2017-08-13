@@ -21,14 +21,6 @@ module.exports = {
         presets: ['react', 'es2015', 'stage-0']
       }
     },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
-      }
     ]
   },
   plugins: [
@@ -37,6 +29,6 @@ module.exports = {
       'process.env.COSMIC_READ_KEY': JSON.stringify(process.env.COSMIC_READ_KEY),
       'process.env.COSMIC_WRITE_KEY': JSON.stringify(process.env.COSMIC_WRITE_KEY)
     }),
-    new LiveReloadPlugin({appendScriptTag: true})
+    new LiveReloadPlugin({appendScriptTag: true}),
   ]
 };

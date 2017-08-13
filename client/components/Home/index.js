@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import GroupElement from './GroupElement';
 import Dialog from '../Dialog';
 import StickyNotes from '../StickyNotes';
 
