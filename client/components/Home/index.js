@@ -9,7 +9,14 @@ class Home extends Component {
     return (
       <div>
       {
-        !!groups && groups.toArray().map((group, i) => <GroupElement key={`group_${i}`} group={group} />)
+        !!groups && groups.toArray().map((group, i) => (
+          <GroupElement
+            key={`group_${i}`}
+            group={group}
+            index={i}
+            deleteGroup={this.props.deleteGroup}
+          />
+        ))
       }
       </div>
     )

@@ -8,24 +8,35 @@ import config from '../../config';
 
 import {
   GET_NOTE_GROUPS,
+  DELETE_NOTE_GROUP,
 } from './constants';
 
 import {
   getNoteGroupsSuccess,
   getNoteGroupsFail,
+  deleteNoteGroupSuccess,
+  deleteNoteGroupFail
 } from './actions';
-
-function* wow(objects) {
-  console.log(objects)
-  // put(getNoteGroupsSuccess(objects));
-}
 
 function getGROUPS(params) {
   return new Promise(function(resolve, reject) {
     Cosmic.getObjectType(config, params, (err, res) => {
       if (!err) {
-        // console.log("FETCHED: ", res.objects)
         resolve(res.objects.all);
+      } else {
+        reject(err);
+      }
+    });
+  });
+
+}
+
+
+function deleteGROUP(params) {
+  return new Promise(function(resolve, reject) {
+    Cosmic.deleteObject(config, params, (err, res) => {
+      if (!err) {
+        resolve(res);
       } else {
         reject(err);
       }
@@ -46,6 +57,20 @@ export function* getNoteGroups() {
 
 }
 
+export function* deleteNoteGroup(action) {
+  const params = {
+    write_key: config.bucket.write_key,
+    slug: action.slug,
+  };
+  const response = yield call(deleteGROUP, params);
+  if(!response.err) {
+    console.log(response)
+    yield put(deleteNoteGroupSuccess(action.index));
+  } else {
+    yield put(deleteNoteGroupFail(response.err));
+  }
+
+}
   // yield put(getNoteGroupsSuccess(res.objects.all));
 
 
@@ -55,6 +80,7 @@ export function* getNoteGroups() {
  */
 export function* homeSagas() {
   yield fork(takeLatest, GET_NOTE_GROUPS, getNoteGroups);
+  yield fork(takeLatest, DELETE_NOTE_GROUP, deleteNoteGroup);
 }
 
 // Bootstrap sagas

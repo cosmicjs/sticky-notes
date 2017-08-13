@@ -12,11 +12,15 @@ import { createStructuredSelector } from 'reselect';
 
 import {
   getNoteGroups,
+  deleteNoteGroup,
 } from './actions';
 
 import {
   selectNoteGroups,
   selectNoteGroupModel,
+  selectGetNoteGroupStatus,
+  selectAddNoteGroupStatus,
+  selectDeleteNoteGroupStatus,
 } from './selectors';
 
 import Home from '../../components/Home';
@@ -26,14 +30,14 @@ export class HomeContainer extends React.Component {
   componentWillMount() {
     this.props.onGetNoteGroups();
   }
-  
-  render() {
-    console.log("NOTES: ",this.props.noteGroups.toJS())
 
+  render() {
     return (
       <div>
       <Home
         groups={this.props.noteGroups}
+
+        deleteGroup={this.props.onDeleteNoteGroup}
       />
       </div>
     );
@@ -47,6 +51,7 @@ HomeContainer.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     onGetNoteGroups: () => dispatch(getNoteGroups()),
+    onDeleteNoteGroup: (slug, index) => dispatch(deleteNoteGroup(slug, index)),
     dispatch,
   };
 }
@@ -54,6 +59,9 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   noteGroups: selectNoteGroups(),
   noteGroupModel: selectNoteGroupModel(),
+  getNoteGroupsStatus: selectGetNoteGroupStatus(),
+  addNoteGroupStatus: selectAddNoteGroupStatus(),
+  deleteNoteGroupStatus: selectDeleteNoteGroupStatus(),
 });
 
 // Wrap the component to inject dispatch and state into it

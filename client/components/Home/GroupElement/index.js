@@ -5,11 +5,12 @@ class GroupElement extends Component {
     super(props);
   }
   render() {
-    const { group } = this.props;
+    const { group, index } = this.props;
     return (
       <div>
         <h1>{group.get('title')}</h1>
         <p>{group.get('slug')}</p>
+        <input type="button" value="Delete" onClick={() => this.props.deleteGroup(group.get('slug'), index)} />
       </div>
     )
   }

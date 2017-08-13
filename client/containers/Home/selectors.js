@@ -14,8 +14,27 @@ const selectNoteGroupModel = () => createSelector(
   (homeState) => homeState.get('noteGroupModel')
 );
 
+const selectGetNoteGroupStatus = () => createSelector(
+  selectHomeState(),
+  (homeState) => homeState.get('getNoteGroupsStatus')
+);
+
+
+const selectAddNoteGroupStatus = () => createSelector(
+  selectHomeState(),
+  (homeState) => homeState.get('addNoteGroupStatus')
+);
+
+
+const selectDeleteNoteGroupStatus = () => createSelector(
+  selectHomeState(),
+  (homeState) => homeState.get('deleteNoteGroupStatus')
+);
 
 export {
   selectNoteGroups,
   selectNoteGroupModel,
+  selectGetNoteGroupStatus,
+  selectAddNoteGroupStatus,
+  selectDeleteNoteGroupStatus,
 };
