@@ -79,7 +79,7 @@ export function* getNoteGroups() {
   const groups = yield call(getGROUPS, params);
   if(!groups.err) {
     console.log("GROUPS: ", groups)
-    yield put(getNoteGroupsSuccess(groups));
+    yield put(getNoteGroupsSuccess(groups||[]));
   } else {
     yield put(getNoteGroupsFail(groups.err));
   }

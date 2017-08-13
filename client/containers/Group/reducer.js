@@ -44,7 +44,6 @@ const initialState = fromJS({
 });
 
 function groupReducer(state = initialState, action) {
-  console.log("ACTION: ", action)
   switch (action.type) {
     case SET_VALUE:
       return state
@@ -78,7 +77,10 @@ function groupReducer(state = initialState, action) {
         .setIn(['addNoteStatus', 'adding'], false)
         .setIn(['addNoteStatus', 'added'], true)
         .setIn(['addNoteStatus', 'error'], false)
-        .updateIn(['notes'], arr => arr.push(fromJS(action.note)));
+        .updateIn(['notes'], arr => {
+          console.log("ARR: ",arr);
+          return arr.push(fromJS(action.note));
+        });
     case ADD_NOTE_FAIL:
       return state
         .setIn(['addNoteStatus', 'adding'], false)

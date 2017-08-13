@@ -35,7 +35,7 @@ class Home extends Component {
   }
 
   goToNoteGroup = (group) => {
-    this.props.changeRoute(`/group/${group.get('slug')}/${group.get('_id')}}`);
+    this.props.changeRoute(`/group/${group.get('slug')}/${group.get('_id')}`);
   }
 
   editOption = (group, selectedGroup) => {

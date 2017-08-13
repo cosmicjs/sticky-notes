@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import NoteElement from './NoteElement';
 import Dialog from '../Dialog';
+import StickyNotes from '../StickyNotes';
 
 class Group extends Component {
   constructor(props){
@@ -22,6 +22,7 @@ class Group extends Component {
   render() {
     const { notes } = this.props;
     const { title, openAddDialog } = this.state;
+    console.log("NOTES: ",notes)
     return (
       <div>
       <input type="button" value="Add Note" onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg" />
@@ -32,17 +33,13 @@ class Group extends Component {
           <input type="text" className="form-control" value={title} onChange={(e) => this.setState({ title: e.target.value })} /> <br />
           <input type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.addNote} />
       </Dialog>
-        {
-          !!notes && notes.toArray().map((note, i) => (
-            <NoteElement
-              key={`note_${i}`}
-              index={i}
-              note={note}
-              editNote={this.props.editNote}
-              deleteNote={this.props.deleteNote}
-            />
-          ))
-        }
+
+      <StickyNotes
+        options={notes}
+        editOption={this.editOption}
+        deleteOption={this.props.deleteNote}
+        handleClick={this.goToNote}
+      />
       </div>
     )
   }

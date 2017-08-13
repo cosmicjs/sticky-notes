@@ -75,7 +75,7 @@ export function* getNotes(action) {
   try {
     const notes = yield call(request, requestURL);
     console.log(notes)
-    yield put(getNotesSuccess(notes.data.objects));
+    yield put(getNotesSuccess(notes.data.objects||[]));
   } catch (err) {
     yield put(getNotesFail(err));
   }
@@ -100,6 +100,7 @@ export function* addNote(action) {
       is_object: true,
     }]
   };
+
   const note = yield call(addNOTE, params);
   if(!note.err) {
     yield put(addNoteSuccess(note.object));
