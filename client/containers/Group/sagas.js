@@ -89,13 +89,20 @@ export function* addNote(action) {
     title: action.note.title,
     metafields: [{
       object_type: "groups",
+      value: action.slug,
       key: "group",
+      title: "Group",
       type: "object",
-      value: action.slug
+      children: false,
+      has_length_edit: false,
+      parent: false,
+      object: true,
+      is_object: true,
     }]
   };
   const group = yield call(addNOTE, params);
   if(!group.err) {
+    console.log("GROUP: ", group.object)
     yield put(addNoteSuccess(group.object));
   } else {
     yield put(addNoteFail(response.err));

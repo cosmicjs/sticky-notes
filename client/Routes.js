@@ -8,7 +8,7 @@ const Routes = ({}) => {
   return (
     <Router history={browserHistory}>
         <Route path="/" component={Home} />
-        <Route path="/group/:groupSlug" component={Group} />
+        <Route path="/group/:groupSlug/:groupId" component={Group} />
     </Router>
   )
 };

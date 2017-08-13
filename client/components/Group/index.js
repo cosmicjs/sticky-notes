@@ -11,10 +11,10 @@ class Group extends Component {
 
   addNote = () => {
     const { title } = this.state;
-    const { groupSlug } = this.props;
+    const { groupId } = this.props;
     this.props.addNote({
       title,
-    }, groupSlug);
+    }, groupId);
   }
   render() {
     const { notes } = this.props;

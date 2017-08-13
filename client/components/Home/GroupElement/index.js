@@ -23,7 +23,7 @@ class GroupElement extends Component {
     return (
       <div>
         <div style={{ display: "flex" }}>
-        <Link to={`/group/${group.get('slug')}`}><h1>{group.get('title')}</h1></Link>
+        <Link to={`/group/${group.get('slug')}/${group.get('_id')}`}><h1>{group.get('title')}</h1></Link>
         <small style={{ marginTop: "8vh", marginLeft: "1vw" }}>{group.get('slug')}</small>
         </div>
         <input type="button" value="Delete" onClick={() => this.props.deleteGroup(group.get('slug'), index)} />
