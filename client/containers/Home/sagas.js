@@ -43,7 +43,6 @@ function addGROUP(params) {
       if (!err) {
         resolve(res);
       } else {
-        console.log(err)
         reject(err);
       }
     });
@@ -56,7 +55,6 @@ function editGroup(params) {
       if (!err) {
         resolve(res);
       } else {
-        console.log(err)
         reject(err);
       }
     });
@@ -98,7 +96,7 @@ export function* addNoteGroup(action) {
   if(!group.err) {
     yield put(addNoteGroupSuccess(group.object));
   } else {
-    yield put(addNoteGroupFail(response.err));
+    yield put(addNoteGroupFail(group.err));
   }
 }
 
@@ -113,7 +111,7 @@ export function* editNoteGroup(action) {
   if(!group.err) {
     yield put(editNoteGroupSuccess(group.object, action.index));
   } else {
-    yield put(editNoteGroupFail(response.err));
+    yield put(editNoteGroupFail(group.err));
   }
 }
 

@@ -89,7 +89,7 @@ export function* addNote(action) {
     title: action.note.title,
     metafields: [{
       object_type: "groups",
-      value: action.slug,
+      value: action.id,
       key: "group",
       title: "Group",
       type: "object",
@@ -100,12 +100,12 @@ export function* addNote(action) {
       is_object: true,
     }]
   };
-  const group = yield call(addNOTE, params);
-  if(!group.err) {
-    console.log("GROUP: ", group.object)
-    yield put(addNoteSuccess(group.object));
+  const note = yield call(addNOTE, params);
+  if(!note.err) {
+    console.log("GROUP: ", note.object)
+    yield put(addNoteSuccess(note.object));
   } else {
-    yield put(addNoteFail(response.err));
+    yield put(addNoteFail(note.err));
   }
 }
 
@@ -116,11 +116,11 @@ export function* editNote(action) {
     slug: action.slug,
     title: action.group.title,
   };
-  const group = yield call(editNOTE, params);
-  if(!group.err) {
-    yield put(editNoteSuccess(group.object, action.index));
+  const note = yield call(editNOTE, params);
+  if(!note.err) {
+    yield put(editNoteSuccess(note.object, action.index));
   } else {
-    yield put(editNoteFail(response.err));
+    yield put(editNoteFail(note.err));
   }
 }
 
