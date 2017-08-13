@@ -6,38 +6,33 @@ import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
 import Cosmic from 'cosmicjs';
 import config from '../../config';
 
+const READ_KEY = config.bucket.read_key;
+const WRITE_KEY = config.bucket.write_key;
+const SLUG = config.bucket.slug;
+const HOST = 'https://api.cosmicjs.com/v1';
+
+import request from '../../utils/request';
 import {
-  GET_NOTE_GROUPS,
-  ADD_NOTE_GROUP,
-  EDIT_NOTE_GROUP,
-  DELETE_NOTE_GROUP,
+  GET_NOTES,
+  ADD_NOTE,
+  EDIT_NOTE,
+  DELETE_NOTE,
 } from './constants';
 
 import {
-  getNoteGroupsSuccess,
-  getNoteGroupsFail,
-  addNoteGroupSuccess,
-  addNoteGroupFail,
-  editNoteGroupSuccess,
-  editNoteGroupFail,
-  deleteNoteGroupSuccess,
-  deleteNoteGroupFail
+  getNotesSuccess,
+  getNotesFail,
+  addNoteSuccess,
+  addNoteFail,
+  editNoteSuccess,
+  editNoteFail,
+  deleteNoteSuccess,
+  deleteNoteFail
 } from './actions';
 
-function getGROUPS(params) {
-  return new Promise(function(resolve, reject) {
-    Cosmic.getObjectType(config, params, (err, res) => {
-      if (!err) {
-        resolve(res.objects.all);
-      } else {
-        reject(err);
-      }
-    });
-  });
 
-}
 
-function addGROUP(params) {
+function addNOTE(params) {
   return new Promise(function(resolve, reject) {
     Cosmic.addObject(config, params, (err, res) => {
       if (!err) {
@@ -50,7 +45,7 @@ function addGROUP(params) {
   });
 }
 
-function editGroup(params) {
+function editNOTE(params) {
   return new Promise(function(resolve, reject) {
     Cosmic.editObject(config, params, (err, res) => {
       if (!err) {
@@ -63,7 +58,7 @@ function editGroup(params) {
   });
 }
 
-function deleteGROUP(params) {
+function deleteNOTE(params) {
   return new Promise(function(resolve, reject) {
     Cosmic.deleteObject(config, params, (err, res) => {
       if (!err) {
@@ -74,64 +69,62 @@ function deleteGROUP(params) {
     });
   });
 }
-export function* getNoteGroups() {
-  const params = {
-    type_slug: 'groups',
-  };
-  const groups = yield call(getGROUPS, params);
-  if(!groups.err) {
-    console.log("GROUPS: ", groups)
-    yield put(getNoteGroupsSuccess(groups));
-  } else {
-    yield put(getNoteGroupsFail(groups.err));
+
+export function* getNotes(action) {
+  const requestURL = `${HOST}/${SLUG}/object-type/notes/search?metafield_key=group&metafield_object_slug=${action.slug}&read_key=${READ_KEY}`;
+  try {
+    const notes = yield call(request, requestURL);
+    console.log(notes)
+    yield put(getNotesSuccess(notes));
+  } catch (err) {
+    yield put(getNotesFail(err));
   }
 
 }
 
-export function* addNoteGroup(action) {
+export function* addNote(action) {
   const params = {
     write_key: config.bucket.write_key,
     type_slug: "groups",
     title: action.group.title,
   };
-  const group = yield call(addGROUP, params);
+  const group = yield call(addNOTE, params);
   if(!group.err) {
-    yield put(addNoteGroupSuccess(group.object));
+    yield put(addNoteSuccess(group.object));
   } else {
-    yield put(addNoteGroupFail(response.err));
+    yield put(addNoteFail(response.err));
   }
 }
 
-export function* editNoteGroup(action) {
+export function* editNote(action) {
   const params = {
     write_key: config.bucket.write_key,
     type_slug: "groups",
     slug: action.slug,
     title: action.group.title,
   };
-  const group = yield call(editGroup, params);
+  const group = yield call(editNOTE, params);
   if(!group.err) {
-    yield put(editNoteGroupSuccess(group.object, action.index));
+    yield put(editNoteSuccess(group.object, action.index));
   } else {
-    yield put(editNoteGroupFail(response.err));
+    yield put(editNoteFail(response.err));
   }
 }
 
-export function* deleteNoteGroup(action) {
+export function* deleteNote(action) {
   const params = {
     write_key: config.bucket.write_key,
     slug: action.slug,
   };
-  const response = yield call(deleteGROUP, params);
+  const response = yield call(deleteNOTE, params);
   if(!response.err) {
     console.log(response)
-    yield put(deleteNoteGroupSuccess(action.index));
+    yield put(deleteNoteSuccess(action.index));
   } else {
-    yield put(deleteNoteGroupFail(response.err));
+    yield put(deleteNoteFail(response.err));
   }
 
 }
-  // yield put(getNoteGroupsSuccess(res.objects.all));
 
 
 /**
@@ -139,10 +132,10 @@ export function* deleteNoteGroup(action) {
  * By using `takeLatest` only the result of the latest API call is applied.
  */
 export function* homeSagas() {
-  yield fork(takeLatest, GET_NOTE_GROUPS, getNoteGroups);
-  yield fork(takeLatest, ADD_NOTE_GROUP, addNoteGroup);
-  yield fork(takeLatest, EDIT_NOTE_GROUP, editNoteGroup);
-  yield fork(takeLatest, DELETE_NOTE_GROUP, deleteNoteGroup);
+  yield fork(takeLatest, GET_NOTES, getNotes);
+  yield fork(takeLatest, ADD_NOTE, addNote);
+  yield fork(takeLatest, EDIT_NOTE, editNote);
+  yield fork(takeLatest, DELETE_NOTE, deleteNote);
 }
 
 // Bootstrap sagas

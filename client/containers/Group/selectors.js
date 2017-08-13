@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { createSelector } from 'reselect';
-const selectGroupState = () => (state) => state.get('group');
+const selectGroupState = () => (state) => state.group;
 
 const selectNotes = () => createSelector(
   selectGroupState(),
@@ -14,7 +14,7 @@ const selectNoteModel = () => createSelector(
   (groupState) => groupState.get('noteModel')
 );
 
-const selectGetNoteStatus = () => createSelector(
+const selectGetNotesStatus = () => createSelector(
   selectGroupState(),
   (groupState) => groupState.get('getNotesStatus')
 );

@@ -131,8 +131,6 @@ export function* deleteNoteGroup(action) {
   }
 
 }
-  // yield put(getNoteGroupsSuccess(res.objects.all));
-
 
 /**
  * Watches for LOAD_REPOS actions and calls getRepos when one comes in.

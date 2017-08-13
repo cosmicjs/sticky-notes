@@ -19,33 +19,32 @@ import { fromJS } from 'immutable';
 
 // The initial state of the App
 const initialState = fromJS({
-  group: {
-    getNotesStatus: {
-      loading: false,
-      loaded: false,
-      error: false,
-    },
-    addNoteStatus: {
-      adding: false,
-      added: false,
-      error: false,
-    },
-    editNoteStatus: {
-      editing: false,
-      edited: false,
-      error: false,
-    },
-    deleteNoteStatus: {
-      deleting: false,
-      deleted: false,
-      error: false,
-    },
-    notes: [],
-    noteModel: {},
-  }
+  getNotesStatus: {
+    loading: false,
+    loaded: false,
+    error: false,
+  },
+  addNoteStatus: {
+    adding: false,
+    added: false,
+    error: false,
+  },
+  editNoteStatus: {
+    editing: false,
+    edited: false,
+    error: false,
+  },
+  deleteNoteStatus: {
+    deleting: false,
+    deleted: false,
+    error: false,
+  },
+  notes: [],
+  noteModel: {},
 });
 
 function groupReducer(state = initialState, action) {
+  console.log("ACTION: ", action)
   switch (action.type) {
     case SET_VALUE:
       return state
@@ -53,72 +52,72 @@ function groupReducer(state = initialState, action) {
 
     case GET_NOTES:
       return state
-        .setIn(['group', 'getNotesStatus', 'loading'], true)
-        .setIn(['group', 'getNotesStatus', 'loaded'], false)
-        .setIn(['group', 'getNotesStatus', 'error'], false);
+        .setIn(['getNotesStatus', 'loading'], true)
+        .setIn(['getNotesStatus', 'loaded'], false)
+        .setIn(['getNotesStatus', 'error'], false);
     case GET_NOTES_SUCCESS:
       return state
-        .setIn(['group', 'getNotesStatus', 'loading'], false)
-        .setIn(['group', 'getNotesStatus', 'loaded'], true)
-        .setIn(['group', 'getNotesStatus', 'error'], false)
-        .setIn(['group', 'notes'], fromJS(action.notes));
+        .setIn(['getNotesStatus', 'loading'], false)
+        .setIn(['getNotesStatus', 'loaded'], true)
+        .setIn(['getNotesStatus', 'error'], false)
+        .setIn(['notes'], fromJS(action.notes));
     case GET_NOTES_FAIL:
       return state
-        .setIn(['group', 'getNotesStatus', 'loading'], false)
-        .setIn(['group', 'getNotesStatus', 'loaded'], false)
-        .setIn(['group', 'getNotesStatus', 'error'], action.error);
+        .setIn(['getNotesStatus', 'loading'], false)
+        .setIn(['getNotesStatus', 'loaded'], false)
+        .setIn(['getNotesStatus', 'error'], action.error);
 
     case ADD_NOTE:
       return state
-        .setIn(['group', 'addNoteStatus', 'adding'], true)
-        .setIn(['group', 'addNoteStatus', 'added'], false)
-        .setIn(['group', 'addNoteStatus', 'error'], false)
-        .setIn(['group', 'noteModel'], action.note);
+        .setIn(['addNoteStatus', 'adding'], true)
+        .setIn(['addNoteStatus', 'added'], false)
+        .setIn(['addNoteStatus', 'error'], false)
+        .setIn(['noteModel'], action.note);
     case ADD_NOTE_SUCCESS:
       return state
-        .setIn(['group', 'addNoteStatus', 'adding'], false)
-        .setIn(['group', 'addNoteStatus', 'added'], true)
-        .setIn(['group', 'addNoteStatus', 'error'], false)
-        .updateIn(['group', 'notes'], arr => arr.push(fromJS(action.note)));
+        .setIn(['addNoteStatus', 'adding'], false)
+        .setIn(['addNoteStatus', 'added'], true)
+        .setIn(['addNoteStatus', 'error'], false)
+        .updateIn(['notes'], arr => arr.push(fromJS(action.note)));
     case ADD_NOTE_FAIL:
       return state
-        .setIn(['group', 'addNoteStatus', 'adding'], false)
-        .setIn(['group', 'addNoteStatus', 'added'], false)
-        .setIn(['group', 'addNoteStatus', 'error'], action.error);
+        .setIn(['addNoteStatus', 'adding'], false)
+        .setIn(['addNoteStatus', 'added'], false)
+        .setIn(['addNoteStatus', 'error'], action.error);
 
     case EDIT_NOTE:
       return state
-        .setIn(['group', 'editNoteStatus', 'editing'], true)
-        .setIn(['group', 'editNoteStatus', 'edited'], false)
-        .setIn(['group', 'editNoteStatus', 'error'], false);
+        .setIn(['editNoteStatus', 'editing'], true)
+        .setIn(['editNoteStatus', 'edited'], false)
+        .setIn(['editNoteStatus', 'error'], false);
     case EDIT_NOTE_SUCCESS:
       return state
-        .setIn(['group', 'editNoteStatus', 'editing'], false)
-        .setIn(['group', 'editNoteStatus', 'edited'], true)
-        .setIn(['group', 'editNoteStatus', 'error'], false)
-        .setIn(['group', 'notes', action.index], fromJS(action.note));
+        .setIn(['editNoteStatus', 'editing'], false)
+        .setIn(['editNoteStatus', 'edited'], true)
+        .setIn(['editNoteStatus', 'error'], false)
+        .setIn(['notes', action.index], fromJS(action.note));
     case EDIT_NOTE_FAIL:
       return state
-        .setIn(['group', 'editNoteStatus', 'editing'], false)
-        .setIn(['group', 'editNoteStatus', 'edited'], false)
-        .setIn(['group', 'editNoteStatus', 'error'], action.error);
+        .setIn(['editNoteStatus', 'editing'], false)
+        .setIn(['editNoteStatus', 'edited'], false)
+        .setIn(['editNoteStatus', 'error'], action.error);
 
     case DELETE_NOTE:
       return state
-        .setIn(['group', 'deleteNoteStatus', 'deleting'], true)
-        .setIn(['group', 'deleteNoteStatus', 'deleted'], false)
-        .setIn(['group', 'deleteNoteStatus', 'error'], false);
+        .setIn(['deleteNoteStatus', 'deleting'], true)
+        .setIn(['deleteNoteStatus', 'deleted'], false)
+        .setIn(['deleteNoteStatus', 'error'], false);
     case DELETE_NOTE_SUCCESS:
       return state
-        .setIn(['group', 'deleteNoteStatus', 'deleting'], false)
-        .setIn(['group', 'deleteNoteStatus', 'deleted'], true)
-        .setIn(['group', 'deleteNoteStatus', 'error'], false)
-        .deleteIn(['group', 'notes', action.index]);
+        .setIn(['deleteNoteStatus', 'deleting'], false)
+        .setIn(['deleteNoteStatus', 'deleted'], true)
+        .setIn(['deleteNoteStatus', 'error'], false)
+        .deleteIn(['notes', action.index]);
     case DELETE_NOTE_FAIL:
       return state
-        .setIn(['group', 'deleteNoteStatus', 'deleting'], false)
-        .setIn(['group', 'deleteNoteStatus', 'deleted'], false)
-        .setIn(['group', 'deleteNoteStatus', 'error'], action.error);
+        .setIn(['deleteNoteStatus', 'deleting'], false)
+        .setIn(['deleteNoteStatus', 'deleted'], false)
+        .setIn(['deleteNoteStatus', 'error'], action.error);
     default:
       return state;
   }

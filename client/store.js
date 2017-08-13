@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 
 import homeReducer from './containers/Home/reducer';
 import homeSagas from './containers/Home/sagas';
@@ -17,9 +17,12 @@ const middlewares = [
   thunkMiddleware,
 ];
 
+const reducers = combineReducers({
+  home: homeReducer,
+  group: groupReducer,
+});
 const store = createStore(
-  homeReducer,
-  groupReducer,
+  reducers,
   applyMiddleware(...middlewares),
 );
 

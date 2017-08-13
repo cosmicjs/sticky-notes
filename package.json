@@ -52,7 +52,8 @@
     "styled-components": "^2.1.1",
     "volleyball": "^1.4.1",
     "webpack": "^3.4.1",
-    "webpack-livereload-plugin": "^0.11.0"
+    "webpack-livereload-plugin": "^0.11.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "chai": "^4.1.0",

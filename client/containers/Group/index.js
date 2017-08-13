@@ -11,15 +11,29 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import {
+  getNotes,
+  editNote,
+  deleteNote,
+  addNote,
 } from './actions';
 
 import {
+  selectNotes,
+  selectNoteModel,
+  selectGetNotesStatus,
+  selectAddNoteStatus,
+  selectEditNoteStatus,
+  selectDeleteNoteStatus,
 } from './selectors';
 
 import Group from '../../components/Group';
 
-export class GroupContainer extends React.Component {
+export class Container extends React.Component {
 
+  componentWillMount() {
+    const { groupSlug } = this.props.params;
+    this.props.onGetNotes(groupSlug);
+  }
 
   render() {
     return (
@@ -32,18 +46,28 @@ export class GroupContainer extends React.Component {
   }
 }
 
-GroupContainer.propTypes = {
+Container.propTypes = {
 
 };
 
 function mapDispatchToProps(dispatch) {
   return {
+    onGetNotes: (slug) => dispatch(getNotes(slug)),
+    onAddNote: (group) => dispatch(addNote(group)),
+    onEditNote: (group, slug, index) => dispatch(editNote(group, slug, index)),
+    onDeleteNote: (slug, index) => dispatch(deleteNote(slug, index)),
     dispatch,
   };
 }
 
 const mapStateToProps = createStructuredSelector({
+  notes: selectNotes(),
+  noteModel: selectNoteModel(),
+  getNotesStatus: selectGetNotesStatus(),
+  addNoteStatus: selectAddNoteStatus(),
+  editNoteStatus: selectEditNoteStatus(),
+  deleteNoteStatus: selectDeleteNoteStatus(),
 });
 
 // Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps, mapDispatchToProps)(GroupContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

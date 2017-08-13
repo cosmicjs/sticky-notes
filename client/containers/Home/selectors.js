@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { createSelector } from 'reselect';
-const selectHomeState = () => (state) => state.get('home');
+const selectHomeState = () => (state) => state.home;
 
 const selectNoteGroups = () => createSelector(
   selectHomeState(),
