@@ -113,7 +113,7 @@ export function* editNote(action) {
     write_key: config.bucket.write_key,
     type_slug: "groups",
     slug: action.slug,
-    title: action.group.title,
+    title: action.note.title,
   };
   const note = yield call(editNOTE, params);
   if(!note.err) {

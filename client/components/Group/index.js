@@ -30,6 +30,7 @@ class Group extends Component {
               key={`note_${i}`}
               index={i}
               note={note}
+              editNote={this.props.editNote}
               deleteNote={this.props.deleteNote}
             />
           ))
