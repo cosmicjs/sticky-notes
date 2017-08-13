@@ -48,10 +48,11 @@ export function getNotesFail(error) {
 }
 
 
-export function addNote(note) {
+export function addNote(note, slug) {
   return {
     type: ADD_NOTE,
     note,
+    slug,
   };
 }
 

@@ -40,6 +40,11 @@ export class Container extends React.Component {
       <div>
       <Group
         notes={this.props.notes}
+        groupSlug={this.props.params.groupSlug}
+
+        addNote={this.props.onAddNote}
+        editNote={this.props.onEditNote}
+        deleteNote={this.props.onDeleteNote}
       />
       </div>
     );
@@ -53,8 +58,8 @@ Container.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     onGetNotes: (slug) => dispatch(getNotes(slug)),
-    onAddNote: (group) => dispatch(addNote(group)),
-    onEditNote: (group, slug, index) => dispatch(editNote(group, slug, index)),
+    onAddNote: (note, slug) => dispatch(addNote(note, slug)),
+    onEditNote: (note, slug, index) => dispatch(editNote(note, slug, index)),
     onDeleteNote: (slug, index) => dispatch(deleteNote(slug, index)),
     dispatch,
   };

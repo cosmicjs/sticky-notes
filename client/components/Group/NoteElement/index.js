@@ -12,8 +12,8 @@ class Note extends Component {
         <h1>{note.get('title')}</h1>
         <small style={{ marginTop: "5vh", marginLeft: "1vw" }}>{note.get('slug')}</small>
         </div>
-      {/*  <input type="button" value="Delete" onClick={() => this.props.deleteGroup(group.get('slug'), index)} />
-        <input type="button" value="Update" onClick={() => this.setState({ editMode: !editMode, editableTitle: group.get('title') })} />
+        <input type="button" value="Delete" onClick={() => this.props.deleteGroup(group.get('slug'), index)} />
+      {/*   <input type="button" value="Update" onClick={() => this.setState({ editMode: !editMode, editableTitle: group.get('title') })} />
         <br />
         {editMode && <span><input type="text" value={editableTitle} onChange={(e) => this.setState({ editableTitle: e.target.value })} />
         <input type="button" value="Edit" onClick={this.editGroup} /></span>} */}

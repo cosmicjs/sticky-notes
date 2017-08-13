@@ -85,8 +85,14 @@ export function* getNotes(action) {
 export function* addNote(action) {
   const params = {
     write_key: config.bucket.write_key,
-    type_slug: "groups",
-    title: action.group.title,
+    type_slug: "notes",
+    title: action.note.title,
+    metafields: [{
+      object_type: "groups",
+      key: "group",
+      type: "object",
+      value: action.slug
+    }]
   };
   const group = yield call(addNOTE, params);
   if(!group.err) {
