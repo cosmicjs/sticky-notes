@@ -1,13 +1,23 @@
 import React, {Component} from 'react';
+import NoteElement from './NoteElement';
 
 class Group extends Component {
   constructor(props){
     super(props);
   }
   render() {
+    const { notes } = this.props;
     return (
       <div>
-        <h1>Here you go! Group {this.props.groupSlug} Page</h1>
+        {
+          !!notes && notes.toArray().map((note, i) => (
+            <NoteElement
+              key={`note_${i}`}
+              index={i}
+              note={note}
+            />
+          ))
+        }
       </div>
     )
   }

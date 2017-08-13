@@ -39,7 +39,7 @@ export class Container extends React.Component {
     return (
       <div>
       <Group
-        groupSlug={this.props.params.groupSlug}
+        notes={this.props.notes}
       />
       </div>
     );
