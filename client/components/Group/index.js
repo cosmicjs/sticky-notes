@@ -15,6 +15,7 @@ class Group extends Component {
     this.props.addNote({
       title,
     }, groupId);
+    this.setState({ title: "" });
   }
   render() {
     const { notes } = this.props;
@@ -29,6 +30,7 @@ class Group extends Component {
               key={`note_${i}`}
               index={i}
               note={note}
+              deleteNote={this.props.deleteNote}
             />
           ))
         }

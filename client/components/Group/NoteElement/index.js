@@ -5,14 +5,14 @@ class Note extends Component {
     super(props);
   }
   render() {
-    const { note } = this.props;
+    const { note, index } = this.props;
     return (
       <div>
         <div style={{ display: "flex" }}>
         <h1>{note.get('title')}</h1>
         <small style={{ marginTop: "5vh", marginLeft: "1vw" }}>{note.get('slug')}</small>
         </div>
-        <input type="button" value="Delete" onClick={() => this.props.deleteGroup(group.get('slug'), index)} />
+        <input type="button" value="Delete" onClick={() => this.props.deleteNote(note.get('slug'), index)} />
       {/*   <input type="button" value="Update" onClick={() => this.setState({ editMode: !editMode, editableTitle: group.get('title') })} />
         <br />
         {editMode && <span><input type="text" value={editableTitle} onChange={(e) => this.setState({ editableTitle: e.target.value })} />

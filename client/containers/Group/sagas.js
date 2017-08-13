@@ -102,7 +102,6 @@ export function* addNote(action) {
   };
   const note = yield call(addNOTE, params);
   if(!note.err) {
-    console.log("GROUP: ", note.object)
     yield put(addNoteSuccess(note.object));
   } else {
     yield put(addNoteFail(note.err));
@@ -131,7 +130,6 @@ export function* deleteNote(action) {
   };
   const response = yield call(deleteNOTE, params);
   if(!response.err) {
-    console.log(response)
     yield put(deleteNoteSuccess(action.index));
   } else {
     yield put(deleteNoteFail(response.err));
