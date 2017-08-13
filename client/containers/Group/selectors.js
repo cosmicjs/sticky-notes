@@ -2,44 +2,44 @@
 /* eslint-disable */
 
 import { createSelector } from 'reselect';
-const selectHomeState = () => (state) => state.get('home');
+const selectGroupState = () => (state) => state.get('group');
 
-const selectNoteGroups = () => createSelector(
-  selectHomeState(),
-  (homeState) => homeState.get('noteGroups')
+const selectNotes = () => createSelector(
+  selectGroupState(),
+  (groupState) => groupState.get('notes')
 );
 
-const selectNoteGroupModel = () => createSelector(
-  selectHomeState(),
-  (homeState) => homeState.get('noteGroupModel')
+const selectNoteModel = () => createSelector(
+  selectGroupState(),
+  (groupState) => groupState.get('noteModel')
 );
 
-const selectGetNoteGroupStatus = () => createSelector(
-  selectHomeState(),
-  (homeState) => homeState.get('getNoteGroupsStatus')
+const selectGetNoteStatus = () => createSelector(
+  selectGroupState(),
+  (groupState) => groupState.get('getNotesStatus')
 );
 
 
-const selectAddNoteGroupStatus = () => createSelector(
-  selectHomeState(),
-  (homeState) => homeState.get('addNoteGroupStatus')
+const selectAddNoteStatus = () => createSelector(
+  selectGroupState(),
+  (groupState) => groupState.get('addNoteStatus')
 );
 
-const selectEditNoteGroupStatus = () => createSelector(
-  selectHomeState(),
-  (homeState) => homeState.get('editNoteGroupStatus')
+const selectEditNoteStatus = () => createSelector(
+  selectGroupState(),
+  (groupState) => groupState.get('editNoteStatus')
 );
 
-const selectDeleteNoteGroupStatus = () => createSelector(
-  selectHomeState(),
-  (homeState) => homeState.get('deleteNoteGroupStatus')
+const selectDeleteNoteStatus = () => createSelector(
+  selectGroupState(),
+  (groupState) => groupState.get('deleteNoteStatus')
 );
 
 export {
-  selectNoteGroups,
-  selectNoteGroupModel,
-  selectGetNoteGroupStatus,
-  selectAddNoteGroupStatus,
-  selectEditNoteGroupStatus,
-  selectDeleteNoteGroupStatus,
+  selectNotes,
+  selectNoteModel,
+  selectGetNotesStatus,
+  selectAddNoteStatus,
+  selectEditNoteStatus,
+  selectDeleteNoteStatus,
 };

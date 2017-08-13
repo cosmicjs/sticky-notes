@@ -3,18 +3,18 @@
 
 import {
   SET_VALUE,
-  GET_NOTE_GROUPS,
-  GET_NOTE_GROUPS_SUCCESS,
-  GET_NOTE_GROUPS_FAIL,
-  ADD_NOTE_GROUP,
-  ADD_NOTE_GROUP_SUCCESS,
-  ADD_NOTE_GROUP_FAIL,
-  EDIT_NOTE_GROUP,
-  EDIT_NOTE_GROUP_SUCCESS,
-  EDIT_NOTE_GROUP_FAIL,
-  DELETE_NOTE_GROUP,
-  DELETE_NOTE_GROUP_SUCCESS,
-  DELETE_NOTE_GROUP_FAIL,
+  GET_NOTES,
+  GET_NOTES_SUCCESS,
+  GET_NOTES_FAIL,
+  ADD_NOTE,
+  ADD_NOTE_SUCCESS,
+  ADD_NOTE_FAIL,
+  EDIT_NOTE,
+  EDIT_NOTE_SUCCESS,
+  EDIT_NOTE_FAIL,
+  DELETE_NOTE,
+  DELETE_NOTE_SUCCESS,
+  DELETE_NOTE_FAIL,
 } from './constants';
 
 
@@ -26,91 +26,92 @@ export function setValue(name, value) {
   };
 }
 
-export function getNoteGroups() {
+export function getNotes(slug) {
   return {
-    type: GET_NOTE_GROUPS,
+    type: GET_NOTES,
+    slug,
   };
 }
 
-export function getNoteGroupsSuccess(groups) {
+export function getNotesSuccess(notes) {
   return {
-    type: GET_NOTE_GROUPS_SUCCESS,
-    groups
+    type: GET_NOTES_SUCCESS,
+    notes
   };
 }
 
-export function getNoteGroupsFail(error) {
+export function getNotesFail(error) {
   return {
-    type: GET_NOTE_GROUPS_FAIL,
+    type: GET_NOTES_FAIL,
     error,
   };
 }
 
 
-export function addNoteGroup(group) {
+export function addNote(note) {
   return {
-    type: ADD_NOTE_GROUP,
-    group,
+    type: ADD_NOTE,
+    note,
   };
 }
 
-export function addNoteGroupSuccess(group) {
+export function addNoteSuccess(note) {
   return {
-    type: ADD_NOTE_GROUP_SUCCESS,
-    group
+    type: ADD_NOTE_SUCCESS,
+    note
   };
 }
 
-export function addNoteGroupFail(error) {
+export function addNoteFail(error) {
   return {
-    type: ADD_NOTE_GROUP_FAIL,
+    type: ADD_NOTE_FAIL,
     error,
   };
 }
 
 
-export function editNoteGroup(group, slug, index) {
+export function editNote(note, slug, index) {
   return {
-    type: EDIT_NOTE_GROUP,
-    group,
+    type: EDIT_NOTE,
+    note,
     slug,
     index,
   };
 }
 
-export function editNoteGroupSuccess(group, index) {
+export function editNoteSuccess(note, index) {
   return {
-    type: EDIT_NOTE_GROUP_SUCCESS,
-    group,
+    type: EDIT_NOTE_SUCCESS,
+    note,
     index,
   };
 }
 
-export function editNoteGroupFail(error) {
+export function editNoteFail(error) {
   return {
-    type: EDIT_NOTE_GROUP_FAIL,
+    type: EDIT_NOTE_FAIL,
     error,
   };
 }
 
-export function deleteNoteGroup(slug, index) {
+export function deleteNote(slug, index) {
   return {
-    type: DELETE_NOTE_GROUP,
+    type: DELETE_NOTE,
     slug,
     index,
   };
 }
 
-export function deleteNoteGroupSuccess(index) {
+export function deleteNoteSuccess(index) {
   return {
-    type: DELETE_NOTE_GROUP_SUCCESS,
+    type: DELETE_NOTE_SUCCESS,
     index
   };
 }
 
-export function deleteNoteGroupFail(error) {
+export function deleteNoteFail(error) {
   return {
-    type: DELETE_NOTE_GROUP_FAIL,
+    type: DELETE_NOTE_FAIL,
     error,
   };
 }
