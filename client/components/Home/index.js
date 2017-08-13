@@ -20,6 +20,10 @@ class Home extends Component {
     this.setState({ title: "", openAddDialog: false })
   }
 
+  goToNoteGroup = (group) => {
+    this.props.changeRoute(`/group/${group.get('slug')}/${group.get('_id')}}`);
+  }
+
   render() {
     const { groups } = this.props;
     const { title, openAddDialog } = this.state;
@@ -39,6 +43,7 @@ class Home extends Component {
           groups={groups}
           editGroup={this.props.editGroup}
           deleteGroup={this.props.deleteGroup}
+          handleClick={this.goToNoteGroup}
         />
       }
       </div>

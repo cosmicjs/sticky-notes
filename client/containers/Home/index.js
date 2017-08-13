@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 
 import {
@@ -43,6 +43,7 @@ export class HomeContainer extends React.Component {
         addGroup={this.props.onAddNoteGroup}
         editGroup={this.props.onEditNoteGroup}
         deleteGroup={this.props.onDeleteNoteGroup}
+        changeRoute={this.props.onChangeRoute}
       />
       </div>
     );
@@ -59,6 +60,7 @@ function mapDispatchToProps(dispatch) {
     onAddNoteGroup: (group) => dispatch(addNoteGroup(group)),
     onEditNoteGroup: (group, slug, index) => dispatch(editNoteGroup(group, slug, index)),
     onDeleteNoteGroup: (slug, index) => dispatch(deleteNoteGroup(slug, index)),
+    onChangeRoute: (route) => dispatch(browserHistory.push(route)),
     dispatch,
   };
 }

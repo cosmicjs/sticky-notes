@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-
 import homeReducer from './containers/Home/reducer';
 import homeSagas from './containers/Home/sagas';
 

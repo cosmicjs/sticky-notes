@@ -1,6 +1,6 @@
 import React from 'react';
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
-import {connect} from 'react-redux';
+import { Router, Route, browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 import Home from './containers/Home';
 import Group from './containers/Group';
 
