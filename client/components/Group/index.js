@@ -21,8 +21,6 @@ class Group extends Component {
     const { groupId, addedMedia } = this.props;
     const image = this.refs.imageFile.files[0];
     const file = this.refs.attachedFile.files[0];
-    console.log("FILES",image,!!image,file,!!file)
-    return;
     this.props.addNote({
       title,
       image,

@@ -111,14 +111,31 @@ export function* addNote(action) {
         parent: false,
         object: true,
         is_object: true,
-      }, {
-        key: 'featured_image',
-        type: 'file',
-        value: action.note.addedMedia,
-      }
-    ]
+    }]
   };
 
+
+  const file1 = yield call(addMedia, action.note.image);
+  if(!file1.err && !!file1) {
+    yield params.metafields.push({
+      key: 'featured_image',
+      type: 'file',
+      value: file1,
+    });
+  }
+
+  console.log("PARAMS1: ", params);
+
+  const file2 = yield call(addMedia, action.note.file);
+  if(!file2.err && !!file2) {
+    yield params.metafields.push({
+      key: 'attachment',
+      type: 'file',
+      value: file2,
+    });
+  }
+
+    console.log("PARAMS2: ", params);
   const note = yield call(addNOTE, params);
 
   if(!note.err) {
@@ -157,18 +174,22 @@ export function* deleteNote(action) {
 
 }
 
-export function* addMedia(action) {
-  const params = {
-    media: action.media,
-    folder: "notes-images",
-  };
-  const response = yield call(addMEDIA, params);
-  if(!response.err) {
-    yield put(addMediaSuccess(response.body.media.name));
+function* addMedia(media) {
+  console.log("MEDIA: ", media )
+  if (!!media) {
+    const params = {
+      media: media,
+      folder: "notes-images",
+    };
+    const response = yield call(addMEDIA, params);
+    if(!response.err) {
+      return response.body.media.name;
+    } else {
+      return response.err;
+    }
   } else {
-    yield put(addMediaFail(response.err));
+    return false;
   }
-
 }
 
 /**
