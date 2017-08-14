@@ -49,6 +49,7 @@ const initialState = fromJS({
   },
   notes: [],
   noteModel: {},
+  addedMedia: null,
 });
 
 function groupReducer(state = initialState, action) {
@@ -138,7 +139,8 @@ function groupReducer(state = initialState, action) {
       return state
         .setIn(['addMediaStatus', 'adding'], false)
         .setIn(['addMediaStatus', 'added'], true)
-        .setIn(['addMediaStatus', 'error'], false);
+        .setIn(['addMediaStatus', 'error'], false)
+        .set('addedMedia', action.media);
     case ADD_MEDIA_FAIL:
       return state
         .setIn(['addMediaStatus', 'adding'], false)

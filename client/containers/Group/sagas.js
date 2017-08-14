@@ -17,6 +17,7 @@ import {
   ADD_NOTE,
   EDIT_NOTE,
   DELETE_NOTE,
+  ADD_MEDIA,
 } from './constants';
 
 import {
@@ -27,7 +28,9 @@ import {
   editNoteSuccess,
   editNoteFail,
   deleteNoteSuccess,
-  deleteNoteFail
+  deleteNoteFail,
+  addMediaSuccess,
+  addMediaFail,
 } from './actions';
 
 
@@ -38,7 +41,6 @@ function addNOTE(params) {
       if (!err) {
         resolve(res);
       } else {
-        console.log(err)
         reject(err);
       }
     });
@@ -51,7 +53,6 @@ function editNOTE(params) {
       if (!err) {
         resolve(res);
       } else {
-        console.log(err)
         reject(err);
       }
     });
@@ -70,11 +71,23 @@ function deleteNOTE(params) {
   });
 }
 
+
+function addMEDIA(params) {
+  return new Promise(function(resolve, reject) {
+    Cosmic.addMedia(config, params, (err, res) => {
+      if (!err) {
+        resolve(res);
+      } else {
+        reject(err);
+      }
+    });
+  });
+}
+
 export function* getNotes(action) {
   const requestURL = `${HOST}/${SLUG}/object-type/notes/search?metafield_key=group&metafield_object_slug=${action.slug}&read_key=${READ_KEY}`;
   try {
     const notes = yield call(request, requestURL);
-    console.log(notes)
     yield put(getNotesSuccess(notes.data.objects||[]));
   } catch (err) {
     yield put(getNotesFail(err));
@@ -83,25 +96,32 @@ export function* getNotes(action) {
 }
 
 export function* addNote(action) {
+
   const params = {
     write_key: config.bucket.write_key,
     type_slug: "notes",
     title: action.note.title,
     metafields: [{
-      object_type: "groups",
-      value: action.id,
-      key: "group",
-      title: "Group",
-      type: "object",
-      children: false,
-      has_length_edit: false,
-      parent: false,
-      object: true,
-      is_object: true,
-    }]
+        object_type: "groups",
+        value: action.id,
+        key: "group",
+        title: "Group",
+        type: "object",
+        children: false,
+        has_length_edit: false,
+        parent: false,
+        object: true,
+        is_object: true,
+      }, {
+        key: 'featured_image',
+        type: 'file',
+        value: action.note.addedMedia,
+      }
+    ]
   };
 
   const note = yield call(addNOTE, params);
+
   if(!note.err) {
     yield put(addNoteSuccess(note.object));
   } else {
@@ -138,6 +158,19 @@ export function* deleteNote(action) {
 
 }
 
+export function* addMedia(action) {
+  const params = {
+    media: action.media,
+    folder: "notes-images",
+  };
+  const response = yield call(addMEDIA, params);
+  if(!response.err) {
+    yield put(addMediaSuccess(response.body.media.name));
+  } else {
+    yield put(addMediaFail(response.err));
+  }
+
+}
 
 /**
  * Watches for LOAD_REPOS actions and calls getRepos when one comes in.
@@ -148,6 +181,7 @@ export function* homeSagas() {
   yield fork(takeLatest, ADD_NOTE, addNote);
   yield fork(takeLatest, EDIT_NOTE, editNote);
   yield fork(takeLatest, DELETE_NOTE, deleteNote);
+  yield fork(takeLatest, ADD_MEDIA, addMedia);
 }
 
 // Bootstrap sagas

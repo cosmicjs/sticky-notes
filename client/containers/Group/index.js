@@ -26,6 +26,7 @@ import {
   selectEditNoteStatus,
   selectDeleteNoteStatus,
   selectAddMediaStatus,
+  selectAddedMedia,
 } from './selectors';
 
 import Group from '../../components/Group';
@@ -44,10 +45,14 @@ export class Container extends React.Component {
         notes={this.props.notes}
         groupSlug={this.props.params.groupSlug}
         groupId={this.props.params.groupId}
+        addedMedia={this.props.addedMedia}
+        addMediaStatus={this.props.addMediaStatus}
+        addNoteStatus={this.props.addNoteStatus}
 
         addNote={this.props.onAddNote}
         editNote={this.props.onEditNote}
         deleteNote={this.props.onDeleteNote}
+        addMedia={this.props.onAddMedia}
       />
       </div>
     );
@@ -72,6 +77,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   notes: selectNotes(),
   noteModel: selectNoteModel(),
+  addedMedia: selectAddedMedia(),
   getNotesStatus: selectGetNotesStatus(),
   addNoteStatus: selectAddNoteStatus(),
   editNoteStatus: selectEditNoteStatus(),

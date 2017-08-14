@@ -39,6 +39,12 @@ const selectAddMediaStatus = () => createSelector(
   selectGroupState(),
   (groupState) => groupState.get('addMediaStatus')
 );
+
+
+const selectAddedMedia = () => createSelector(
+  selectGroupState(),
+  (groupState) => groupState.get('addedMedia')
+);
 export {
   selectNotes,
   selectNoteModel,
@@ -47,4 +53,5 @@ export {
   selectEditNoteStatus,
   selectDeleteNoteStatus,
   selectAddMediaStatus,
+  selectAddedMedia,
 };
