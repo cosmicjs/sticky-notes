@@ -169,11 +169,11 @@ export function* deleteNote(action) {
   };
 
   if (!!action.note.metafields && !!action.note.metafields[1]) {
-    const file1 = yield call(deleteMedia, action.note.metafields[1].id);
+    yield call(deleteMedia, action.note.metafields[1].id);
   }
 
   if (!!action.note.metafields && !!action.note.metafields[2]) {
-    const file2 = yield call(addMedia, action.note.metafields[2].id);
+    yield call(addMedia, action.note.metafields[2].id);
   }
   const response = yield call(deleteNOTE, params);
   if(!response.err) {

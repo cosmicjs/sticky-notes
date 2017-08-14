@@ -84,6 +84,7 @@ export function* getNoteGroups() {
     type_slug: 'groups',
   };
   const groups = yield call(getGROUPS, params);
+  console.log(groups)
   if(!groups.err) {
     console.log("GROUPS: ", groups)
     yield put(getNoteGroupsSuccess(groups||[]));
@@ -131,12 +132,18 @@ export function* deleteNoteGroup(action) {
   };
 
   const notes = yield call(getNotes, action.group.slug);
-  console.log("NOTES: ",notes)
   async.eachSeries(notes, (note, callback) => {
     const params = {
       write_key: config.bucket.write_key,
       slug: note.slug,
     };
+    if (!!note.metafields && !!note.metafields[1]) {
+      deleteMedia(note.metafields[1].id);
+    }
+
+    if (!!note.metafields && !!note.metafields[2]) {
+      addMedia(note.metafields[2].id);
+    }
     Cosmic.deleteObject(config, params, (err, res)=> {
       callback();
     })
@@ -150,6 +157,19 @@ export function* deleteNoteGroup(action) {
 
 }
 
+function deleteMedia(id) {
+  const requestURL = `${HOST}/${SLUG}/media/${id}`;
+  const options = {
+    method: 'DELETE',
+    headers: {
+     'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      write_key: WRITE_KEY,
+    })
+  };
+  request(requestURL, options);
+}
 function* getNotes(slug) {
   const requestURL = `${HOST}/${SLUG}/object-type/notes/search?metafield_key=group&metafield_object_slug=${slug}&read_key=${READ_KEY}`;
   try {
