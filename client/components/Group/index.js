@@ -10,6 +10,7 @@ class Group extends Component {
       selectedNote: null,
       openAddDialog: false,
       openEditDialog: false,
+      openViewDialog: false,
       note: {
         title: "",
       },
@@ -38,12 +39,6 @@ class Group extends Component {
     this.setState({ ...state, note: { title: "" }, openEditDialog: false })
   }
 
-  // componentWillReceiveProps(newProps) {
-  //   if(newProps.addMediaStatus.get('added') && !newProps.addMediaStatus.get('error') && !newProps.addNoteStatus.get('adding') && !newProps.addNoteStatus.get('added')) {
-  //     setTimeout(this.addNote, 1000);
-  //   }
-  // }
-
   editOption = (note, selectedNote) => {
     this.setState({
       openEditDialog: true,
@@ -52,10 +47,17 @@ class Group extends Component {
     });
   }
 
+  goToNote = (note) => {
+    this.setState({
+      note: note.toJS(),
+      openViewDialog: true,
+    })
+  }
   render() {
     const { notes } = this.props;
     const { state } = this;
-    const { title, openAddDialog, openEditDialog, note } = this.state;
+    const { title, openAddDialog, openEditDialog, openViewDialog, note } = this.state;
+    console.log(note)
     return (
       <div>
       <input type="button" value="Add Note" onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg" />
@@ -77,6 +79,17 @@ class Group extends Component {
       >
         <input type="text" value={note.title} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, title: e.target.value } })} />
         <input type="button" value="Edit Note" className="btn btn-warning btn-lg" onClick={this.editNote} />
+      </Dialog>
+
+      <Dialog
+        open={openViewDialog}
+        closeDialog={() => this.setState({ openViewDialog: false })}
+      >
+        <h1>{note.title}</h1>
+        <p>{note.content}</p>
+        {!!note.metafields && !!note.metafields[1] && note.metafields[1].key==="featured_image" && <img width="64" height="64" src={note.metafields[1].imgix_url} />}
+        {!!note.metafields && !!note.metafields[1] && note.metafields[1].key==="attachment" && <a href={note.metafields[1].imgix_url} target="_blank">Attachment</a>}
+        {!!note.metafields && !!note.metafields[2] && note.metafields[2].key==="attachment" && <a href={note.metafields[2].imgix_url} target="_blank">Attachment</a>}
       </Dialog>
 
       <StickyNotes
