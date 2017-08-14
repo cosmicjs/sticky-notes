@@ -34,6 +34,7 @@
     "cosmicjs": "^2.39.91",
     "express": "^4.15.3",
     "immutable": "^3.8.1",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
