@@ -19,7 +19,3 @@ export const EDIT_NOTE_FAIL = 'sticky-notes/Group/EDIT_NOTE_FAIL';
 export const DELETE_NOTE = 'sticky-notes/Group/DELETE_NOTE';
 export const DELETE_NOTE_SUCCESS = 'sticky-notes/Group/DELETE_NOTE_SUCCESS';
 export const DELETE_NOTE_FAIL = 'sticky-notes/Group/DELETE_NOTE_FAIL';
-
-export const ADD_MEDIA = 'sticky-notes/Group/ADD_MEDIA';
-export const ADD_MEDIA_SUCCESS = 'sticky-notes/Group/ADD_MEDIA_SUCCESS';
-export const ADD_MEDIA_FAIL = 'sticky-notes/Group/ADD_MEDIA_FAIL';

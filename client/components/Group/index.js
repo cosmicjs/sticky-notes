@@ -19,9 +19,14 @@ class Group extends Component {
   addNote = () => {
     const { title } = this.state;
     const { groupId, addedMedia } = this.props;
+    const image = this.refs.imageFile.files[0];
+    const file = this.refs.attachedFile.files[0];
+    console.log("FILES",image,!!image,file,!!file)
+    return;
     this.props.addNote({
       title,
-      addedMedia,
+      image,
+      file,
     }, groupId);
     this.setState({ title: "", openAddDialog: false });
   }
@@ -35,14 +40,12 @@ class Group extends Component {
     this.setState({ ...state, note: { title: "" }, openEditDialog: false })
   }
 
-  componentWillReceiveProps(newProps) {
-    if(newProps.addMediaStatus.get('added') && !newProps.addMediaStatus.get('error') && !newProps.addNoteStatus.get('adding') && !newProps.addNoteStatus.get('added')) {
-      setTimeout(this.addNote, 1000);
-    }
-  }
-  uploadMedia = () => {
-    this.props.addMedia(this.refs.imageFile.files[0]);
-  }
+  // componentWillReceiveProps(newProps) {
+  //   if(newProps.addMediaStatus.get('added') && !newProps.addMediaStatus.get('error') && !newProps.addNoteStatus.get('adding') && !newProps.addNoteStatus.get('added')) {
+  //     setTimeout(this.addNote, 1000);
+  //   }
+  // }
+
   editOption = (note, selectedNote) => {
     this.setState({
       openEditDialog: true,
@@ -64,7 +67,8 @@ class Group extends Component {
       >
           <input type="text" className="form-control" value={title} onChange={(e) => this.setState({ title: e.target.value })} /> <br />
           <input type="file" className="form-control" ref="imageFile" /> <br />
-          <input type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.uploadMedia} />
+          <input type="file" className="form-control" ref="attachedFile" /> <br />
+          <input type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.addNote} />
       </Dialog>
 
 

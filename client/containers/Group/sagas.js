@@ -17,7 +17,6 @@ import {
   ADD_NOTE,
   EDIT_NOTE,
   DELETE_NOTE,
-  ADD_MEDIA,
 } from './constants';
 
 import {
@@ -181,7 +180,6 @@ export function* homeSagas() {
   yield fork(takeLatest, ADD_NOTE, addNote);
   yield fork(takeLatest, EDIT_NOTE, editNote);
   yield fork(takeLatest, DELETE_NOTE, deleteNote);
-  yield fork(takeLatest, ADD_MEDIA, addMedia);
 }
 
 // Bootstrap sagas

@@ -13,9 +13,6 @@ import {
   DELETE_NOTE,
   DELETE_NOTE_SUCCESS,
   DELETE_NOTE_FAIL,
-  ADD_MEDIA,
-  ADD_MEDIA_SUCCESS,
-  ADD_MEDIA_FAIL,
 } from './constants';
 
 import { fromJS } from 'immutable';
@@ -42,14 +39,8 @@ const initialState = fromJS({
     deleted: false,
     error: false,
   },
-  addMediaStatus: {
-    adding: false,
-    added: false,
-    error: false,
-  },
   notes: [],
   noteModel: {},
-  addedMedia: null,
 });
 
 function groupReducer(state = initialState, action) {
@@ -129,23 +120,6 @@ function groupReducer(state = initialState, action) {
         .setIn(['deleteNoteStatus', 'deleting'], false)
         .setIn(['deleteNoteStatus', 'deleted'], false)
         .setIn(['deleteNoteStatus', 'error'], action.error);
-
-    case ADD_MEDIA:
-      return state
-        .setIn(['addMediaStatus', 'adding'], true)
-        .setIn(['addMediaStatus', 'added'], false)
-        .setIn(['addMediaStatus', 'error'], false);
-    case ADD_MEDIA_SUCCESS:
-      return state
-        .setIn(['addMediaStatus', 'adding'], false)
-        .setIn(['addMediaStatus', 'added'], true)
-        .setIn(['addMediaStatus', 'error'], false)
-        .set('addedMedia', action.media);
-    case ADD_MEDIA_FAIL:
-      return state
-        .setIn(['addMediaStatus', 'adding'], false)
-        .setIn(['addMediaStatus', 'added'], false)
-        .setIn(['addMediaStatus', 'error'], action.error);
     default:
       return state;
   }
