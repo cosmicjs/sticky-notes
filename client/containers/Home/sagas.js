@@ -91,6 +91,7 @@ export function* addNoteGroup(action) {
     write_key: config.bucket.write_key,
     type_slug: "groups",
     title: action.group.title,
+    content: action.group.content,
   };
   const group = yield call(addGROUP, params);
   if(!group.err) {
@@ -106,6 +107,7 @@ export function* editNoteGroup(action) {
     type_slug: "groups",
     slug: action.slug,
     title: action.group.title,
+    content: action.group.content,
   };
   const group = yield call(editGroup, params);
   if(!group.err) {

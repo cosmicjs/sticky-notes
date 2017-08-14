@@ -100,6 +100,7 @@ export function* addNote(action) {
     write_key: config.bucket.write_key,
     type_slug: "notes",
     title: action.note.title,
+    content: action.note.content,
     metafields: [{
       object_type: "groups",
       value: action.id,
@@ -150,6 +151,7 @@ export function* editNote(action) {
     type_slug: "groups",
     slug: action.slug,
     title: action.note.title,
+    content: action.note.content,
   };
   const note = yield call(editNOTE, params);
   if(!note.err) {

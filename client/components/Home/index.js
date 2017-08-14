@@ -7,6 +7,7 @@ class Home extends Component {
     super(props);
     this.state = {
       title: "",
+      content: "",
       selectedGroup: null,
       openAddDialog: false,
       openEditDialog: false,
@@ -17,11 +18,12 @@ class Home extends Component {
   }
 
   addGroup = () => {
-    const { title } = this.state;
+    const { title, content } = this.state;
     this.props.addGroup({
       title,
+      content,
     });
-    this.setState({ title: "", openAddDialog: false })
+    this.setState({ title: "", content: "", openAddDialog: false })
   }
 
 
@@ -30,6 +32,7 @@ class Home extends Component {
     const { state } = this;
     this.props.editGroup({
       title: group.title,
+      content: group.content,
     }, group.slug, selectedGroup);
     this.setState({ ...state, group: { title: "" }, openEditDialog: false })
   }
@@ -48,7 +51,7 @@ class Home extends Component {
   render() {
     const { groups } = this.props;
     const { state } = this;
-    const { title, openAddDialog, openEditDialog, group } = this.state;
+    const { title, content, openAddDialog, openEditDialog, group } = this.state;
     return (
       <div>
 
@@ -59,7 +62,8 @@ class Home extends Component {
         closeDialog={() => this.setState({ openAddDialog: false })}
       >
         <input type="text" value={title} className="form-control" onChange={(e) => this.setState({ title: e.target.value })} />
-        <input type="button" value="Edit Group" className="btn btn-primary btn-lg" onClick={this.addGroup} />
+        <input type="text" value={content} className="form-control" onChange={(e) => this.setState({ content: e.target.value })} />
+        <input type="button" value="Add Group" className="btn btn-primary btn-lg" onClick={this.addGroup} />
       </Dialog>
 
       <Dialog
@@ -67,6 +71,7 @@ class Home extends Component {
         closeDialog={() => this.setState({ openEditDialog: false })}
       >
         <input type="text" value={group.title} className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, title: e.target.value } })} />
+        <input type="text" value={group.content||""} className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, content: e.target.value } })} />
         <input type="button" value="Edit Group" className="btn btn-warning btn-lg" onClick={this.editGroup} />
       </Dialog>
 
