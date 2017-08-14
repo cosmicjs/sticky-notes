@@ -160,11 +160,19 @@ export function* editNote(action) {
 }
 
 export function* deleteNote(action) {
-  console.log(action.note);
+
   const params = {
     write_key: config.bucket.write_key,
     slug: action.note.slug,
   };
+
+  if (!!action.note.metafields && !!action.note.metafields[1]) {
+    const file1 = yield call(deleteMedia, action.note.metafields[1].id);
+  }
+
+  if (!!action.note.metafields && !!action.note.metafields[2]) {
+    const file2 = yield call(addMedia, action.note.metafields[2].id);
+  }
   const response = yield call(deleteNOTE, params);
   if(!response.err) {
     yield put(deleteNoteSuccess(action.index));
@@ -175,13 +183,22 @@ export function* deleteNote(action) {
 }
 
 
-export function* deleteMedia(action) {
-  const requestURL = `${HOST}/${SLUG}/object-type/notes/search?metafield_key=group&metafield_object_slug=${action.slug}&read_key=${READ_KEY}`;
+export function* deleteMedia(id) {
+  const requestURL = `${HOST}/${SLUG}/media/${id}`;
+  const options = {
+    method: 'DELETE',
+    headers: {
+     'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      write_key: WRITE_KEY,
+    })
+  };
   try {
-    const notes = yield call(request, requestURL);
-    yield put(getNotesSuccess(notes.data.objects||[]));
+    const response = yield call(request, requestURL, options);
+    return true;
   } catch (err) {
-    yield put(getNotesFail(err));
+    return false;
   }
 
 }
