@@ -57,7 +57,6 @@ class Group extends Component {
     const { notes } = this.props;
     const { state } = this;
     const { title, openAddDialog, openEditDialog, openViewDialog, note } = this.state;
-    console.log(note)
     return (
       <div>
       <input type="button" value="Add Note" onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg" />

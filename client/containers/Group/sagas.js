@@ -101,16 +101,16 @@ export function* addNote(action) {
     type_slug: "notes",
     title: action.note.title,
     metafields: [{
-        object_type: "groups",
-        value: action.id,
-        key: "group",
-        title: "Group",
-        type: "object",
-        children: false,
-        has_length_edit: false,
-        parent: false,
-        object: true,
-        is_object: true,
+      object_type: "groups",
+      value: action.id,
+      key: "group",
+      title: "Group",
+      type: "object",
+      children: false,
+      has_length_edit: false,
+      parent: false,
+      object: true,
+      is_object: true,
     }]
   };
 
@@ -120,22 +120,21 @@ export function* addNote(action) {
     yield params.metafields.push({
       key: 'featured_image',
       type: 'file',
-      value: file1,
+      value: file1.file,
+      id: file1._id
     });
   }
-
-  console.log("PARAMS1: ", params);
 
   const file2 = yield call(addMedia, action.note.file);
   if(!file2.err && !!file2) {
     yield params.metafields.push({
       key: 'attachment',
       type: 'file',
-      value: file2,
+      value: file2.file,
+      id: file2._id
     });
   }
 
-    console.log("PARAMS2: ", params);
   const note = yield call(addNOTE, params);
 
   if(!note.err) {
@@ -174,8 +173,19 @@ export function* deleteNote(action) {
 
 }
 
+
+export function* deleteMedia(action) {
+  const requestURL = `${HOST}/${SLUG}/object-type/notes/search?metafield_key=group&metafield_object_slug=${action.slug}&read_key=${READ_KEY}`;
+  try {
+    const notes = yield call(request, requestURL);
+    yield put(getNotesSuccess(notes.data.objects||[]));
+  } catch (err) {
+    yield put(getNotesFail(err));
+  }
+
+}
+
 function* addMedia(media) {
-  console.log("MEDIA: ", media )
   if (!!media) {
     const params = {
       media: media,
@@ -183,7 +193,7 @@ function* addMedia(media) {
     };
     const response = yield call(addMEDIA, params);
     if(!response.err) {
-      return response.body.media.name;
+      return response.body.media;
     } else {
       return response.err;
     }
