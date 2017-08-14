@@ -95,10 +95,10 @@ export function editNoteFail(error) {
   };
 }
 
-export function deleteNote(slug, index) {
+export function deleteNote(note, index) {
   return {
     type: DELETE_NOTE,
-    slug,
+    note,
     index,
   };
 }

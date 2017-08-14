@@ -93,10 +93,10 @@ export function editNoteGroupFail(error) {
   };
 }
 
-export function deleteNoteGroup(slug, index) {
+export function deleteNoteGroup(group, index) {
   return {
     type: DELETE_NOTE_GROUP,
-    slug,
+    group,
     index,
   };
 }

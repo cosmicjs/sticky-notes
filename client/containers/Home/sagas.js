@@ -118,7 +118,7 @@ export function* editNoteGroup(action) {
 export function* deleteNoteGroup(action) {
   const params = {
     write_key: config.bucket.write_key,
-    slug: action.slug,
+    slug: action.group.slug,
   };
   const response = yield call(deleteGROUP, params);
   if(!response.err) {

@@ -160,9 +160,10 @@ export function* editNote(action) {
 }
 
 export function* deleteNote(action) {
+  console.log(action.note);
   const params = {
     write_key: config.bucket.write_key,
-    slug: action.slug,
+    slug: action.note.slug,
   };
   const response = yield call(deleteNOTE, params);
   if(!response.err) {
