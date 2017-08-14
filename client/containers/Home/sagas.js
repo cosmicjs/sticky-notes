@@ -4,7 +4,14 @@
 import { takeLatest } from 'redux-saga';
 import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
 import Cosmic from 'cosmicjs';
+import async from 'async';
 import config from '../../config';
+import request from '../../utils/request';
+
+const READ_KEY = config.bucket.read_key;
+const WRITE_KEY = config.bucket.write_key;
+const SLUG = config.bucket.slug;
+const HOST = 'https://api.cosmicjs.com/v1';
 
 import {
   GET_NOTE_GROUPS,
@@ -122,14 +129,35 @@ export function* deleteNoteGroup(action) {
     write_key: config.bucket.write_key,
     slug: action.group.slug,
   };
+
+  const notes = yield call(getNotes, action.group.slug);
+  console.log("NOTES: ",notes)
+  async.eachSeries(notes, (note, callback) => {
+    const params = {
+      write_key: config.bucket.write_key,
+      slug: note.slug,
+    };
+    Cosmic.deleteObject(config, params, (err, res)=> {
+      callback();
+    })
+  });
   const response = yield call(deleteGROUP, params);
   if(!response.err) {
-    console.log(response)
     yield put(deleteNoteGroupSuccess(action.index));
   } else {
     yield put(deleteNoteGroupFail(response.err));
   }
 
+}
+
+function* getNotes(slug) {
+  const requestURL = `${HOST}/${SLUG}/object-type/notes/search?metafield_key=group&metafield_object_slug=${slug}&read_key=${READ_KEY}`;
+  try {
+    const notes = yield call(request, requestURL);
+    return notes.data.objects||[];
+  } catch (err) {
+    return err
+  }
 }
 
 /**

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/jazibsawar/sticky-notes#readme",
   "dependencies": {
+    "async": "^2.5.0",
     "babel": "^6.23.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",

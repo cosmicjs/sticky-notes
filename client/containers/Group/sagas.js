@@ -202,7 +202,6 @@ export function* deleteMedia(id) {
   } catch (err) {
     return false;
   }
-
 }
 
 function* addMedia(media) {
