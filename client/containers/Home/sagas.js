@@ -85,7 +85,6 @@ export function* getNoteGroups() {
   };
   try {
     const groups = yield call(getGROUPS, params);
-    console.log("GROUPS: ", groups)
     yield put(getNoteGroupsSuccess(groups||[]));
   } catch(err) {
     yield put(getNoteGroupsFail(groups.err));
@@ -99,6 +98,11 @@ export function* addNoteGroup(action) {
     type_slug: "groups",
     title: action.group.title,
     content: action.group.content,
+    metafields: [{
+      value: action.group.color,
+      key: "color",
+      title: "Color",
+    }],
   };
   const group = yield call(addGROUP, params);
   if(!group.err) {
@@ -115,6 +119,11 @@ export function* editNoteGroup(action) {
     slug: action.slug,
     title: action.group.title,
     content: action.group.content,
+    metafields: [{
+      value: action.group.color,
+      key: "color",
+      title: "Color",
+    }]
   };
   const group = yield call(editGroup, params);
   if(!group.err) {

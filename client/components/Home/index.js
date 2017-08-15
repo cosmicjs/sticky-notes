@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Dialog from '../Dialog';
 import StickyNotes from '../StickyNotes';
+import ColorPicker from '../ColorPicker';
 
 class Home extends Component {
   constructor(props){
@@ -8,6 +9,7 @@ class Home extends Component {
     this.state = {
       title: "",
       content: "",
+      color: "#fff",
       selectedGroup: null,
       openAddDialog: false,
       openEditDialog: false,
@@ -18,10 +20,11 @@ class Home extends Component {
   }
 
   addGroup = () => {
-    const { title, content } = this.state;
+    const { title, content, color } = this.state;
     this.props.addGroup({
       title,
       content,
+      color,
     });
     this.setState({ title: "", content: "", openAddDialog: false })
   }
@@ -33,6 +36,7 @@ class Home extends Component {
     this.props.editGroup({
       title: group.title,
       content: group.content,
+      color: group.color,
     }, group.slug, selectedGroup);
     this.setState({ ...state, group: { title: "" }, openEditDialog: false })
   }
@@ -51,7 +55,7 @@ class Home extends Component {
   render() {
     const { groups } = this.props;
     const { state } = this;
-    const { title, content, openAddDialog, openEditDialog, group } = this.state;
+    const { title, content, color, openAddDialog, openEditDialog, group } = this.state;
 
     const styles = {
       btnCircle: {
@@ -85,10 +89,14 @@ class Home extends Component {
             <input placeholder="Enter Name ..." type="text" style={{ margin: "1vh 0" }} value={title} className="form-control" onChange={(e) => this.setState({ title: e.target.value })} />
           </div>
           <div className="col-xs-12">
-            <textarea placeholder="Enter Description ..." rows="4" cols="50" style={{ margin: "1vh 0" }} className="form-control" onChange={(e) => this.setState({ content: e.target.value })}>
-              {content}
-            </textarea>
+            <textarea value={content} placeholder="Enter Description ..." rows="4" cols="50" style={{ margin: "1vh 0" }} className="form-control" onChange={(e) => this.setState({ content: e.target.value })} />
           </div>
+
+          <div className="col-xs-12">
+            <ColorPicker color={color} changeColor={(color) => this.setState({ color: color.hex })} />
+          </div>
+
+
           <div className="col-xs-12">
             <input type="button" disabled={title === "" && "disabled"} style={{ margin: "1vh 0" }} value="Add Group" className="btn btn-primary btn-lg" onClick={this.addGroup} />
           </div>
@@ -104,13 +112,15 @@ class Home extends Component {
             <input style={{ margin: "1vh 0" }} type="text" value={group.title} className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, title: e.target.value } })} />
           </div>
           <div className="col-xs-12">
-            <textarea style={{ margin: "1vh 0" }} type="text" className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, content: e.target.value } })}>
-              {group.content||""}
-            </textarea>
+            <textarea value={group.content||""} style={{ margin: "1vh 0" }} type="text" className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, content: e.target.value } })} />
+          </div>
+          <div className="col-xs-12">
+            <ColorPicker color={group.color} changeColor={(color) => this.setState({ ...state, group: { ...this.state.group, color: color.hex }})} />
           </div>
           <div className="col-xs-12">
             <input disabled={group.title === "" && "disabled"} style={{ margin: "1vh 0" }} type="button" value="Edit Group" className="btn btn-warning btn-lg" onClick={this.editGroup} />
           </div>
+
         </div>
       </Dialog>
 
