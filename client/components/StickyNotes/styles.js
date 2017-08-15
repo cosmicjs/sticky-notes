@@ -44,5 +44,9 @@ export const Note = styled.div`
     right: 5px;
     font-size: 10px;
   }
-
+  .buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
 `;
