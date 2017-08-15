@@ -54,25 +54,46 @@ class Home extends Component {
     const { title, content, openAddDialog, openEditDialog, group } = this.state;
     return (
       <div className="container-fluid">
-
-      <input type="button" value="Add Group" className="btn btn-primary btn-lg" onClick={() => this.setState({ openAddDialog: true })} />
-
+      <div className="row">
+      <div style={{ margin: "10px" }} className="col-xs-12">
+        <input type="button" value="Add Group" className="btn btn-primary btn-lg" onClick={() => this.setState({ openAddDialog: true })} />
+      </div>
       <Dialog
         open={openAddDialog}
         closeDialog={() => this.setState({ openAddDialog: false })}
       >
-        <input type="text" value={title} className="form-control" onChange={(e) => this.setState({ title: e.target.value })} />
-        <input type="text" value={content} className="form-control" onChange={(e) => this.setState({ content: e.target.value })} />
-        <input type="button" value="Add Group" className="btn btn-primary btn-lg" onClick={this.addGroup} />
+        <div className="container-fluid">
+          <div className="col-xs-12">
+            <input placeholder="Enter Name ..." type="text" style={{ margin: "1vh 0" }} value={title} className="form-control" onChange={(e) => this.setState({ title: e.target.value })} />
+          </div>
+          <div className="col-xs-12">
+            <textarea placeholder="Enter Description ..." rows="4" cols="50" style={{ margin: "1vh 0" }} className="form-control" onChange={(e) => this.setState({ content: e.target.value })}>
+              {content}
+            </textarea>
+          </div>
+          <div className="col-xs-12">
+            <input type="button" style={{ margin: "1vh 0" }} value="Add Group" className="btn btn-primary btn-lg" onClick={this.addGroup} />
+          </div>
+        </div>
       </Dialog>
 
       <Dialog
         open={openEditDialog}
         closeDialog={() => this.setState({ openEditDialog: false })}
       >
-        <input type="text" value={group.title} className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, title: e.target.value } })} />
-        <input type="text" value={group.content||""} className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, content: e.target.value } })} />
-        <input type="button" value="Edit Group" className="btn btn-warning btn-lg" onClick={this.editGroup} />
+        <div className="container-fluid">
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="text" value={group.title} className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, title: e.target.value } })} />
+          </div>
+          <div className="col-xs-12">
+            <textarea style={{ margin: "1vh 0" }} type="text" className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, content: e.target.value } })}>
+              {group.content||""}
+            </textarea>
+          </div>
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="button" value="Edit Group" className="btn btn-warning btn-lg" onClick={this.editGroup} />
+          </div>
+        </div>
       </Dialog>
 
       {
@@ -83,6 +104,7 @@ class Home extends Component {
           handleClick={this.goToNoteGroup}
         />
       }
+      </div>
       </div>
     )
   }
