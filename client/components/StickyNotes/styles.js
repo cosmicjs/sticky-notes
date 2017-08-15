@@ -38,6 +38,9 @@ export const Note = styled.div`
   a, h4 {
     cursor: pointer;
   }
+  a {
+    color: white;
+  }
   small {
     position: absolute;
     top: 5px;
