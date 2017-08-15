@@ -62,17 +62,29 @@ class Group extends Component {
 
     const { title, content, openAddDialog, openEditDialog, openViewDialog, note } = this.state;
     return (
-      <div>
-      <input type="button" value="Add Note" onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg" />
+      <div className="container-fluid">
+      <input style={{ margin: "10px" }} type="button" value="Add Note" onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg" />
       <Dialog
         open={openAddDialog}
         closeDialog={() => this.setState({ openAddDialog: false })}
       >
-          <input type="text" className="form-control" value={title} onChange={(e) => this.setState({ title: e.target.value })} /> <br />
-          <input type="text" className="form-control" value={content} onChange={(e) => this.setState({ content: e.target.value })} /> <br />
-          <input type="file" className="form-control" ref="imageFile" /> <br />
-          <input type="file" className="form-control" ref="attachedFile" /> <br />
-          <input type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.addNote} />
+        <div className="container-fluid">
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="text" className="form-control" value={title} onChange={(e) => this.setState({ title: e.target.value })} /> <br />
+          </div>
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="text" className="form-control" value={content} onChange={(e) => this.setState({ content: e.target.value })} /> <br />
+          </div>
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="file" className="form-control" ref="imageFile" /> <br />
+          </div>
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="file" className="form-control" ref="attachedFile" /> <br />
+          </div>
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.addNote} />
+          </div>
+        </div>
       </Dialog>
 
 
@@ -81,20 +93,49 @@ class Group extends Component {
         open={openEditDialog}
         closeDialog={() => this.setState({ openEditDialog: false })}
       >
-        <input type="text" value={note.title} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, title: e.target.value } })} />
-        <input type="text" value={note.content||""} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, content: e.target.value } })} />
-        <input type="button" value="Edit Note" className="btn btn-warning btn-lg" onClick={this.editNote} />
+        <div className="container-fluid">
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="text" value={note.title} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, title: e.target.value } })} />
+          </div>
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="text" value={note.content||""} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, content: e.target.value } })} />
+          </div>
+          <div className="col-xs-12">
+            <input style={{ margin: "1vh 0" }} type="button" value="Edit Note" className="btn btn-warning btn-lg" onClick={this.editNote} />
+          </div>
+        </div>
       </Dialog>
 
       <Dialog
         open={openViewDialog}
         closeDialog={() => this.setState({ openViewDialog: false })}
       >
-        <h1>{note.title}</h1>
-        <p>{note.content}</p>
-        {!!note.metafields && !!note.metafields[1] && note.metafields[1].key==="feature_image" && <img width="64" height="64" src={note.metafields[1].imgix_url} />}
-        {!!note.metafields && !!note.metafields[1] && note.metafields[1].key==="attachment" && <a href={note.metafields[1].imgix_url} target="_blank">Attachment</a>}
-        {!!note.metafields && !!note.metafields[2] && note.metafields[2].key==="attachment" && <a href={note.metafields[2].imgix_url} target="_blank">Attachment</a>}
+        <div className="container-fluid">
+          <div className="col-xs-12">
+            <h1 style={{ margin: "1vh 0" }}>{note.title}</h1>
+          </div>
+          <div className="col-xs-12">
+            <p style={{ margin: "1vh 0" }}>{note.content}</p>
+          </div>
+          {
+            !!note.metafields && !!note.metafields[1] && note.metafields[1].key==="feature_image" &&
+            <div className="col-xs-12">
+              <img style={{ margin: "1vh 0" }} width="128" height="128" src={note.metafields[1].imgix_url} />
+            </div>
+          }
+          {
+            !!note.metafields && !!note.metafields[1] && note.metafields[1].key==="attachment" &&
+            <div className="col-xs-12">
+              <a style={{ margin: "1vh 0" }} href={note.metafields[1].imgix_url} target="_blank">Click on this link to open attachment in the new link</a>
+            </div>
+          }
+          {
+            !!note.metafields && !!note.metafields[2] && note.metafields[2].key==="attachment" &&
+            <div className="col-xs-12">
+              <a style={{ margin: "1vh 0" }} href={note.metafields[2].imgix_url} target="_blank">Click on this link to open attachment in the new link</a>
+            </div>
+          }
+        </div>
       </Dialog>
 
       <StickyNotes
