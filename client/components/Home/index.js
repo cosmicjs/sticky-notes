@@ -90,7 +90,7 @@ class Home extends Component {
             </textarea>
           </div>
           <div className="col-xs-12">
-            <input type="button" style={{ margin: "1vh 0" }} value="Add Group" className="btn btn-primary btn-lg" onClick={this.addGroup} />
+            <input type="button" disabled={title === "" && "disabled"} style={{ margin: "1vh 0" }} value="Add Group" className="btn btn-primary btn-lg" onClick={this.addGroup} />
           </div>
         </div>
       </Dialog>
@@ -109,7 +109,7 @@ class Home extends Component {
             </textarea>
           </div>
           <div className="col-xs-12">
-            <input style={{ margin: "1vh 0" }} type="button" value="Edit Group" className="btn btn-warning btn-lg" onClick={this.editGroup} />
+            <input disabled={group.title === "" && "disabled"} style={{ margin: "1vh 0" }} type="button" value="Edit Group" className="btn btn-warning btn-lg" onClick={this.editGroup} />
           </div>
         </div>
       </Dialog>

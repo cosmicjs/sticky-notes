@@ -102,7 +102,7 @@ class Group extends Component {
             <input style={{ margin: "1vh 0" }} type="file" className="form-control" ref="attachedFile" /> <br />
           </div>
           <div className="col-xs-12">
-            <input style={{ margin: "1vh 0" }} type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.addNote} />
+            <input disabled={(title === "" || content === "") && "disabled"} style={{ margin: "1vh 0" }} type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.addNote} />
           </div>
         </div>
       </Dialog>
@@ -121,7 +121,7 @@ class Group extends Component {
             <input style={{ margin: "1vh 0" }} type="text" value={note.content||""} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, content: e.target.value } })} />
           </div>
           <div className="col-xs-12">
-            <input style={{ margin: "1vh 0" }} type="button" value="Edit Note" className="btn btn-warning btn-lg" onClick={this.editNote} />
+            <input disabled={(note.title === "" || note.content === "") && "disabled"} style={{ margin: "1vh 0" }} type="button" value="Edit Note" className="btn btn-warning btn-lg" onClick={this.editNote} />
           </div>
         </div>
       </Dialog>
