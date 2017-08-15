@@ -116,22 +116,22 @@ export function* addNote(action) {
   };
 
 
-  const file1 = yield call(addMedia, action.note.image);
+  const file1 = yield call(addMedia, action.note.image, "notes-images");
   if(!file1.err && !!file1) {
     yield params.metafields.push({
-      key: 'featured_image',
+      key: 'feature_image',
       type: 'file',
-      value: file1.file,
+      value: file1.name,
       id: file1._id
     });
   }
 
-  const file2 = yield call(addMedia, action.note.file);
+  const file2 = yield call(addMedia, action.note.file, "notes-attachments");
   if(!file2.err && !!file2) {
     yield params.metafields.push({
       key: 'attachment',
       type: 'file',
-      value: file2.file,
+      value: file2.name,
       id: file2._id
     });
   }
@@ -139,6 +139,7 @@ export function* addNote(action) {
   const note = yield call(addNOTE, params);
 
   if(!note.err) {
+    console.log(note)
     yield put(addNoteSuccess(note.object));
   } else {
     yield put(addNoteFail(note.err));
@@ -204,11 +205,11 @@ export function* deleteMedia(id) {
   }
 }
 
-function* addMedia(media) {
+function* addMedia(media, folder) {
   if (!!media) {
     const params = {
       media: media,
-      folder: "notes-images",
+      folder: folder,
     };
     const response = yield call(addMEDIA, params);
     if(!response.err) {

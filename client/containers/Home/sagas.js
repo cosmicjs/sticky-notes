@@ -142,7 +142,7 @@ export function* deleteNoteGroup(action) {
     }
 
     if (!!note.metafields && !!note.metafields[2]) {
-      addMedia(note.metafields[2].id);
+      deleteMedia(note.metafields[2].id);
     }
     Cosmic.deleteObject(config, params, (err, res)=> {
       callback();

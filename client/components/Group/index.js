@@ -59,6 +59,7 @@ class Group extends Component {
   render() {
     const { notes } = this.props;
     const { state } = this;
+
     const { title, content, openAddDialog, openEditDialog, openViewDialog, note } = this.state;
     return (
       <div>
@@ -91,7 +92,7 @@ class Group extends Component {
       >
         <h1>{note.title}</h1>
         <p>{note.content}</p>
-        {!!note.metafields && !!note.metafields[1] && note.metafields[1].key==="featured_image" && <img width="64" height="64" src={note.metafields[1].imgix_url} />}
+        {!!note.metafields && !!note.metafields[1] && note.metafields[1].key==="feature_image" && <img width="64" height="64" src={note.metafields[1].imgix_url} />}
         {!!note.metafields && !!note.metafields[1] && note.metafields[1].key==="attachment" && <a href={note.metafields[1].imgix_url} target="_blank">Attachment</a>}
         {!!note.metafields && !!note.metafields[2] && note.metafields[2].key==="attachment" && <a href={note.metafields[2].imgix_url} target="_blank">Attachment</a>}
       </Dialog>

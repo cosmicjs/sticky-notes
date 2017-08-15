@@ -11,7 +11,7 @@ class StickyNotes extends Component {
         {
           !!options && options.toArray().map((option, index) => (
             <NoteWrapper key={`note_${index}`}>
-              <Note backgroundColor="#23c6c8" color="#ffffff" rotate={4}>
+              <Note backgroundColor="black" color="#ffffff" rotate={index%2 === 0? -2 : 4}>
                 <small>{moment(option.get('created')).fromNow()}</small>
                 <h4 onClick={() => this.props.handleClick(option)}>{option.get('title')}</h4>
                 <p>{option.get('content')}</p>
