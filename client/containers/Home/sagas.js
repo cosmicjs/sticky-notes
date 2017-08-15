@@ -83,12 +83,11 @@ export function* getNoteGroups() {
   const params = {
     type_slug: 'groups',
   };
-  const groups = yield call(getGROUPS, params);
-  console.log(groups)
-  if(!groups.err) {
+  try {
+    const groups = yield call(getGROUPS, params);
     console.log("GROUPS: ", groups)
     yield put(getNoteGroupsSuccess(groups||[]));
-  } else {
+  } catch(err) {
     yield put(getNoteGroupsFail(groups.err));
   }
 

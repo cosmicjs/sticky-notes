@@ -53,7 +53,7 @@ class Home extends Component {
     const { state } = this;
     const { title, content, openAddDialog, openEditDialog, group } = this.state;
     return (
-      <div>
+      <div className="container-fluid">
 
       <input type="button" value="Add Group" className="btn btn-primary btn-lg" onClick={() => this.setState({ openAddDialog: true })} />
 
