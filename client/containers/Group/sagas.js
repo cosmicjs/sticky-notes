@@ -112,6 +112,10 @@ export function* addNote(action) {
       parent: false,
       object: true,
       is_object: true,
+    }, {
+      value: action.note.color,
+      key: "color",
+      title: "Color",
     }]
   };
 
@@ -139,7 +143,6 @@ export function* addNote(action) {
   const note = yield call(addNOTE, params);
 
   if(!note.err) {
-    console.log(note)
     yield put(addNoteSuccess(note.object));
   } else {
     yield put(addNoteFail(note.err));
@@ -153,6 +156,11 @@ export function* editNote(action) {
     slug: action.slug,
     title: action.note.title,
     content: action.note.content,
+    metafields: [{
+      value: action.note.color,
+      key: "color",
+      title: "Color",
+    }]
   };
   const note = yield call(editNOTE, params);
   if(!note.err) {

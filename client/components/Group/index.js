@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Dialog from '../Dialog';
 import StickyNotes from '../StickyNotes';
+import ColorPicker from '../ColorPicker';
 
 class Group extends Component {
   constructor(props){
@@ -8,6 +9,7 @@ class Group extends Component {
     this.state = {
       title: "",
       content: "",
+      color: "",
       selectedNote: null,
       openAddDialog: false,
       openEditDialog: false,
@@ -19,13 +21,14 @@ class Group extends Component {
   }
 
   addNote = () => {
-    const { title, content } = this.state;
+    const { title, color, content } = this.state;
     const { groupId, addedMedia } = this.props;
     const image = this.refs.imageFile.files[0];
     const file = this.refs.attachedFile.files[0];
     this.props.addNote({
       title,
       content,
+      color,
       image,
       file,
     }, groupId);
@@ -37,6 +40,7 @@ class Group extends Component {
     const { state } = this;
     this.props.editNote({
       title: note.title,
+      color: note.color || "#000",
       content: note.content,
     }, note.slug, selectedNote);
     this.setState({ ...state, note: { title: "" }, openEditDialog: false })
@@ -60,7 +64,7 @@ class Group extends Component {
     const { notes } = this.props;
     const { state } = this;
 
-    const { title, content, openAddDialog, openEditDialog, openViewDialog, note } = this.state;
+    const { title, content, color, openAddDialog, openEditDialog, openViewDialog, note } = this.state;
 
     const styles = {
       btnCircle: {
@@ -102,6 +106,9 @@ class Group extends Component {
             <input style={{ margin: "1vh 0" }} type="file" className="form-control" ref="attachedFile" /> <br />
           </div>
           <div className="col-xs-12">
+            <ColorPicker color={color} changeColor={(color) => this.setState({ color: color.hex })} />
+          </div>
+          <div className="col-xs-12">
             <input disabled={(title === "" || content === "") && "disabled"} style={{ margin: "1vh 0" }} type="button" className="btn btn-success btn-md" value="Add Note" onClick={this.addNote} />
           </div>
         </div>
@@ -119,6 +126,9 @@ class Group extends Component {
           </div>
           <div className="col-xs-12">
             <textarea style={{ margin: "1vh 0" }} type="text" value={note.content||""} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, content: e.target.value } })} />
+          </div>
+          <div className="col-xs-12">
+            <ColorPicker color={note.color} changeColor={(color) => this.setState({ ...state, note: { ...this.state.note, color: color.hex }})} />
           </div>
           <div className="col-xs-12">
             <input disabled={(note.title === "" || note.content === "") && "disabled"} style={{ margin: "1vh 0" }} type="button" value="Edit Note" className="btn btn-warning btn-lg" onClick={this.editNote} />
