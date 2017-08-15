@@ -28,6 +28,7 @@ import {
 
 import Home from '../../components/Home';
 
+import Loader from '../../components/Loader';
 export class HomeContainer extends React.Component {
 
   componentWillMount() {
@@ -35,6 +36,12 @@ export class HomeContainer extends React.Component {
   }
 
   render() {
+    const { getNoteGroupsStatus, addNoteGroupStatus, editNoteGroupStatus, deleteNoteGroupStatus } = this.props;
+    const getNoteGroupLoading = getNoteGroupsStatus.get('loading');
+    const addNoteGroupAdding = addNoteGroupStatus.get('adding');
+    const editNoteGroupEditing = editNoteGroupStatus.get('editing');
+    const deleteNoteGroupDeleting = deleteNoteGroupStatus.get('deleting');
+    if(getNoteGroupLoading || addNoteGroupAdding || editNoteGroupEditing || deleteNoteGroupDeleting) return <Loader />;
     return (
       <div>
       <Home

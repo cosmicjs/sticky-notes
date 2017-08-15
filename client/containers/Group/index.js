@@ -27,6 +27,7 @@ import {
 } from './selectors';
 
 import Group from '../../components/Group';
+import Loader from '../../components/Loader';
 
 export class Container extends React.Component {
 
@@ -36,6 +37,13 @@ export class Container extends React.Component {
   }
 
   render() {
+    const { getNotesStatus, addNoteStatus, editNoteStatus, deleteNoteStatus } = this.props;
+    const getNotesLoading = getNotesStatus.get('loading');
+    const addNoteAdding = addNoteStatus.get('adding');
+    const editNoteEditing = editNoteStatus.get('editing');
+    const deleteNoteDeleting = deleteNoteStatus.get('deleting');
+    if(getNotesLoading || addNoteAdding || editNoteEditing || deleteNoteDeleting) return <Loader />;
+
     return (
       <div>
       <Group
