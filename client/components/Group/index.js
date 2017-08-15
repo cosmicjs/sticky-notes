@@ -61,9 +61,29 @@ class Group extends Component {
     const { state } = this;
 
     const { title, content, openAddDialog, openEditDialog, openViewDialog, note } = this.state;
+
+    const styles = {
+      btnCircle: {
+        width: "30px",
+        height: "30px",
+        textAlign: "center",
+        padding: "6px 0",
+        fontSize: "12px",
+        fontWeight: "700",
+        lineHeight: "1.42",
+        borderRadius: "15px",
+        margin: "10px",
+        border: "none",
+        outline: "none",
+        float: "right"
+      }
+    }
+
     return (
       <div className="container-fluid">
-      <input style={{ margin: "10px" }} type="button" value="Add Note" onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg" />
+      <button style={styles.btnCircle}  onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg">
+        <i className="fa fa-plus"></i>
+      </button>
       <Dialog
         open={openAddDialog}
         closeDialog={() => this.setState({ openAddDialog: false })}

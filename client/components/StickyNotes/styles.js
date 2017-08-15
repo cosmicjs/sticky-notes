@@ -8,7 +8,7 @@ export const NoteListWrapper = styled.ul`
 
 
 export const NoteWrapper = styled.li`
-  margin: 10px 40px 50px 0px;
+  margin: 40px;
   float: left;
   list-style: none;
 `;
