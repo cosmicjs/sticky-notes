@@ -7,6 +7,7 @@ import Cosmic from 'cosmicjs';
 import async from 'async';
 import config from '../../config';
 import request from '../../utils/request';
+import cosmic from '../../utils/cosmic';
 
 const READ_KEY = config.bucket.read_key;
 const WRITE_KEY = config.bucket.write_key;
@@ -31,60 +32,13 @@ import {
   deleteNoteGroupFail
 } from './actions';
 
-function getGROUPS(params) {
-  return new Promise(function(resolve, reject) {
-    Cosmic.getObjectType(config, params, (err, res) => {
-      if (!err) {
-        resolve(res.objects.all);
-      } else {
-        reject(err);
-      }
-    });
-  });
 
-}
-
-function addGROUP(params) {
-  return new Promise(function(resolve, reject) {
-    Cosmic.addObject(config, params, (err, res) => {
-      if (!err) {
-        resolve(res);
-      } else {
-        reject(err);
-      }
-    });
-  });
-}
-
-function editGroup(params) {
-  return new Promise(function(resolve, reject) {
-    Cosmic.editObject(config, params, (err, res) => {
-      if (!err) {
-        resolve(res);
-      } else {
-        reject(err);
-      }
-    });
-  });
-}
-
-function deleteGROUP(params) {
-  return new Promise(function(resolve, reject) {
-    Cosmic.deleteObject(config, params, (err, res) => {
-      if (!err) {
-        resolve(res);
-      } else {
-        reject(err);
-      }
-    });
-  });
-}
 export function* getNoteGroups() {
   const params = {
     type_slug: 'groups',
   };
   try {
-    const groups = yield call(getGROUPS, params);
+    const groups = yield call(cosmic, "GET_TYPE",params);
     yield put(getNoteGroupsSuccess(groups||[]));
   } catch(err) {
     yield put(getNoteGroupsFail(groups.err));
@@ -104,7 +58,7 @@ export function* addNoteGroup(action) {
       title: "Color",
     }],
   };
-  const group = yield call(addGROUP, params);
+  const group = yield call(cosmic, "ADD", params);
   if(!group.err) {
     yield put(addNoteGroupSuccess(group.object));
   } else {
@@ -125,7 +79,7 @@ export function* editNoteGroup(action) {
       title: "Color",
     }]
   };
-  const group = yield call(editGroup, params);
+  const group = yield call(cosmic, "EDIT", params);
   if(!group.err) {
     yield put(editNoteGroupSuccess(group.object, action.index));
   } else {
@@ -156,7 +110,7 @@ export function* deleteNoteGroup(action) {
       callback();
     })
   });
-  const response = yield call(deleteGROUP, params);
+  const response = yield call(cosmic, "DELETE", params);
   if(!response.err) {
     yield put(deleteNoteGroupSuccess(action.index));
   } else {

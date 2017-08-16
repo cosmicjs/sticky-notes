@@ -83,7 +83,6 @@ class Group extends Component {
       }
     }
 
-    console.log(note)
     return (
       <div className="container-fluid">
       <button style={styles.btnCircle}  onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg">

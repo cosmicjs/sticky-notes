@@ -12,6 +12,7 @@ const SLUG = config.bucket.slug;
 const HOST = 'https://api.cosmicjs.com/v1';
 
 import request from '../../utils/request';
+import cosmic from '../../utils/cosmic';
 import {
   GET_NOTES,
   ADD_NOTE,
@@ -31,57 +32,6 @@ import {
   addMediaSuccess,
   addMediaFail,
 } from './actions';
-
-
-
-function addNOTE(params) {
-  return new Promise(function(resolve, reject) {
-    Cosmic.addObject(config, params, (err, res) => {
-      if (!err) {
-        resolve(res);
-      } else {
-        reject(err);
-      }
-    });
-  });
-}
-
-function editNOTE(params) {
-  return new Promise(function(resolve, reject) {
-    Cosmic.editObject(config, params, (err, res) => {
-      if (!err) {
-        resolve(res);
-      } else {
-        reject(err);
-      }
-    });
-  });
-}
-
-function deleteNOTE(params) {
-  return new Promise(function(resolve, reject) {
-    Cosmic.deleteObject(config, params, (err, res) => {
-      if (!err) {
-        resolve(res);
-      } else {
-        reject(err);
-      }
-    });
-  });
-}
-
-
-function addMEDIA(params) {
-  return new Promise(function(resolve, reject) {
-    Cosmic.addMedia(config, params, (err, res) => {
-      if (!err) {
-        resolve(res);
-      } else {
-        reject(err);
-      }
-    });
-  });
-}
 
 export function* getNotes(action) {
   const requestURL = `${HOST}/${SLUG}/object-type/notes/search?metafield_key=group&metafield_object_slug=${action.slug}&read_key=${READ_KEY}`;
@@ -140,7 +90,7 @@ export function* addNote(action) {
     });
   }
 
-  const note = yield call(addNOTE, params);
+  const note = yield call(cosmic, "ADD", params);
 
   if(!note.err) {
     yield put(addNoteSuccess(note.object));
@@ -162,7 +112,7 @@ export function* editNote(action) {
       title: "Color",
     }]
   };
-  const note = yield call(editNOTE, params);
+  const note = yield call(cosmic, "EDIT", params);
   if(!note.err) {
     yield put(editNoteSuccess(note.object, action.index));
   } else {
@@ -177,14 +127,14 @@ export function* deleteNote(action) {
     slug: action.note.slug,
   };
 
-  if (!!action.note.metafields && !!action.note.metafields[1]) {
-    yield call(deleteMedia, action.note.metafields[1].id);
+  if (!!action.note.metafields && !!action.note.metafields[2]) {
+    yield call(deleteMedia, action.note.metafields[2].id);
   }
 
-  if (!!action.note.metafields && !!action.note.metafields[2]) {
-    yield call(addMedia, action.note.metafields[2].id);
+  if (!!action.note.metafields && !!action.note.metafields[3]) {
+    yield call(addMedia, action.note.metafields[3].id);
   }
-  const response = yield call(deleteNOTE, params);
+  const response = yield call(cosmic, "DELETE", params);
   if(!response.err) {
     yield put(deleteNoteSuccess(action.index));
   } else {
@@ -219,7 +169,7 @@ function* addMedia(media, folder) {
       media: media,
       folder: folder,
     };
-    const response = yield call(addMEDIA, params);
+    const response = yield call(cosmic, "ADD_MEDIA", params);
     if(!response.err) {
       return response.body.media;
     } else {

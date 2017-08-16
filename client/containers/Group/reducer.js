@@ -78,7 +78,6 @@ function groupReducer(state = initialState, action) {
         .setIn(['addNoteStatus', 'added'], true)
         .setIn(['addNoteStatus', 'error'], false)
         .updateIn(['notes'], arr => {
-          console.log("ARR: ",arr);
           return arr.push(fromJS(action.note));
         });
     case ADD_NOTE_FAIL:

@@ -13,14 +13,6 @@ app.use(bodyParser.json());
 //serve up static files
 app.use(express.static(path.resolve(__dirname, '..', 'client')));
 app.use(express.static(path.resolve(__dirname, '..', 'node_modules')));
-// app.use(express.static(path.resolve(__dirname, '..', 'client', 'styles', 'mainSheet', 'main.css')));
-
-// app.get('/client/styles/mainSheet', function (request, response){
-//   console.log("I HIT DA STYLES");
-//   response.sendFile(path.resolve(__dirname, '..', 'styles', 'mainSheet', 'main.css'))
-// });
-// app.use(express.static(path.resolve(__dirname, 'client', 'styles', 'mainSheet', 'main.css')));
-
 
 app.use(function (err, req, res, next) {
   console.error(err);
