@@ -83,6 +83,7 @@ class Group extends Component {
       }
     }
 
+    console.log(note)
     return (
       <div className="container-fluid">
       <button style={styles.btnCircle}  onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg">
@@ -148,21 +149,15 @@ class Group extends Component {
             <p style={{ margin: "1vh 0" }}>{note.content}</p>
           </div>
           {
-            !!note.metafields && !!note.metafields[1] && note.metafields[1].key==="feature_image" &&
+            !!note.metadata && !!note.metadata.feature_image &&
             <div className="col-xs-12">
-              <img style={{ margin: "1vh 0" }} width="128" height="128" src={note.metafields[1].imgix_url} />
+              <img style={{ margin: "1vh 0" }} width="128" height="128" src={note.metadata.feature_image.imgix_url} />
             </div>
           }
           {
-            !!note.metafields && !!note.metafields[1] && note.metafields[1].key==="attachment" &&
+            !!note.metadata && !!note.metadata.attachment &&
             <div className="col-xs-12">
-              <a style={{ margin: "1vh 0" }} href={note.metafields[1].imgix_url} target="_blank">Click on this link to open attachment in the new link</a>
-            </div>
-          }
-          {
-            !!note.metafields && !!note.metafields[2] && note.metafields[2].key==="attachment" &&
-            <div className="col-xs-12">
-              <a style={{ margin: "1vh 0" }} href={note.metafields[2].imgix_url} target="_blank">Click on this link to open attachment in the new link</a>
+              <a style={{ margin: "1vh 0" }} href={note.metadata.attachment.imgix_url} target="_blank">Click on this link to open attachment in the new link</a>
             </div>
           }
         </div>
