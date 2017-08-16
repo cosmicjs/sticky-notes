@@ -106,11 +106,7 @@ export function* editNote(action) {
     slug: action.slug,
     title: action.note.title,
     content: action.note.content,
-    metafields: [{
-      value: action.note.color,
-      key: "color",
-      title: "Color",
-    }]
+    metafields: action.note.metafields,
   };
   const note = yield call(cosmic, "EDIT", params);
   if(!note.err) {

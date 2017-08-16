@@ -38,10 +38,13 @@ class Group extends Component {
   editNote = () => {
     const { note, selectedNote } = this.state;
     const { state } = this;
+    let METAFIELDS = note;
+    METAFIELDS.metafields[1].value = note.color || "#000"
     this.props.editNote({
       title: note.title,
       color: note.color || "#000",
       content: note.content,
+      metafields: METAFIELDS.metafields,
     }, note.slug, selectedNote);
     this.setState({ ...state, note: { title: "" }, openEditDialog: false })
   }
