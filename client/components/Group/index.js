@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Dialog from '../Dialog';
 import StickyNotes from '../StickyNotes';
 import ColorPicker from '../ColorPicker';
-
+import { Link } from 'react-router';
 class Group extends Component {
   constructor(props){
     super(props);
@@ -71,6 +71,11 @@ class Group extends Component {
 
     return (
       <div className="container-fluid">
+      <Link to="/">
+        <button style={{ margin: "20px" }} className="btn btn-primary btn-lg">
+          <i className="fa fa-arrow-left"></i> Back
+        </button>
+      </Link>
       <button style={{ margin: "20px" }}  onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg pull-right">
         <i className="fa fa-plus"></i> Add Note
       </button>
