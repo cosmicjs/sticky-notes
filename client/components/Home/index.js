@@ -57,28 +57,12 @@ class Home extends Component {
     const { state } = this;
     const { title, content, color, openAddDialog, openEditDialog, group } = this.state;
 
-    const styles = {
-      btnCircle: {
-        width: "30px",
-        height: "30px",
-        textAlign: "center",
-        padding: "6px 0",
-        fontSize: "12px",
-        fontWeight: "700",
-        lineHeight: "1.42",
-        borderRadius: "15px",
-        margin: "10px",
-        border: "none",
-        outline: "none",
-        float: "right"
-      }
-    }
 
     return (
       <div className="container-fluid">
       <div className="row">
-        <button style={styles.btnCircle} className="btn btn-primary btn-lg" onClick={() => this.setState({ openAddDialog: true })}>
-          <i className="fa fa-plus"></i>
+        <button style={{ margin: "20px" }} className="btn btn-primary btn-lg pull-right" onClick={() => this.setState({ openAddDialog: true })}>
+          <i className="fa fa-plus"></i> Add Group
         </button>
       <Dialog
         open={openAddDialog}

@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 export const NoteListWrapper = styled.ul`
-  body{
-    margin-top:20px;
-  }
+  margin-top: 70px;
 `;
 
 
