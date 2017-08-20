@@ -97,10 +97,10 @@ class Group extends Component {
       >
         <div className="container-fluid">
           <div className="col-xs-12">
-            <input placeholder="Enter title ..." style={{ margin: "1vh 0" }} type="text" className="form-control" value={title} onChange={(e) => this.setState({ title: e.target.value })} /> <br />
+            <input placeholder="Enter Title ..." style={{ margin: "1vh 0" }} type="text" className="form-control" value={title} onChange={(e) => this.setState({ title: e.target.value })} /> <br />
           </div>
           <div className="col-xs-12">
-            <textarea placeholder="Enter description ..." style={{ margin: "1vh 0" }} type="text" className="form-control" value={content} onChange={(e) => this.setState({ content: e.target.value })} /> <br />
+            <textarea placeholder="Enter Description ..." style={{ margin: "1vh 0" }} type="text" className="form-control" value={content} onChange={(e) => this.setState({ content: e.target.value })} /> <br />
           </div>
           <div className="col-xs-12">
             <strong>Image: </strong><input style={{ margin: "1vh 0" }} type="file" className="form-control" ref="imageFile" /> <br />
@@ -125,10 +125,10 @@ class Group extends Component {
       >
         <div className="container-fluid">
           <div className="col-xs-12">
-            <input placeholder="Enter title ..." style={{ margin: "1vh 0" }} type="text" value={note.title} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, title: e.target.value } })} />
+            <input placeholder="Enter Title ..." style={{ margin: "1vh 0" }} type="text" value={note.title} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, title: e.target.value } })} />
           </div>
           <div className="col-xs-12">
-            <textarea placeholder="Enter description ..." style={{ margin: "1vh 0" }} type="text" value={note.content||""} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, content: e.target.value } })} />
+            <textarea placeholder="Enter Description ..." style={{ margin: "1vh 0" }} type="text" value={note.content||""} className="form-control" onChange={(e) => this.setState({ ...state, note: {  ...this.state.note, content: e.target.value } })} />
           </div>
           <div className="col-xs-12">
             <ColorPicker color={note.color} changeColor={(color) => this.setState({ ...state, note: { ...this.state.note, color: color.hex }})} />

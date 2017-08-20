@@ -109,10 +109,10 @@ class Home extends Component {
       >
         <div className="container-fluid">
           <div className="col-xs-12">
-            <input style={{ margin: "1vh 0" }} type="text" value={group.title} className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, title: e.target.value } })} />
+            <input placeholder="Enter Name ..." style={{ margin: "1vh 0" }} type="text" value={group.title} className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, title: e.target.value } })} />
           </div>
           <div className="col-xs-12">
-            <textarea value={group.content||""} style={{ margin: "1vh 0" }} type="text" className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, content: e.target.value } })} />
+            <textarea placeholder="Enter Description ..." value={group.content||""} style={{ margin: "1vh 0" }} type="text" className="form-control" onChange={(e) => this.setState({ ...state, group: {  ...this.state.group, content: e.target.value } })} />
           </div>
           <div className="col-xs-12">
             <ColorPicker color={group.color} changeColor={(color) => this.setState({ ...state, group: { ...this.state.group, color: color.hex }})} />
