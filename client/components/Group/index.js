@@ -68,7 +68,6 @@ class Group extends Component {
     const { state } = this;
 
     const { title, content, color, openAddDialog, openEditDialog, openViewDialog, note } = this.state;
-
     return (
       <div className="container-fluid">
       <Link to="/">
@@ -76,9 +75,9 @@ class Group extends Component {
           <i className="fa fa-arrow-left"></i> Back
         </button>
       </Link>
-      <button style={{ margin: "20px" }}  onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg pull-right">
+      {notes.size > 0 && <button style={{ margin: "20px" }}  onClick={() => this.setState({ openAddDialog: true })} className="btn btn-primary btn-lg pull-right">
         <i className="fa fa-plus"></i> Add Note
-      </button>
+      </button>}
       <Dialog
         open={openAddDialog}
         closeDialog={() => this.setState({ openAddDialog: false })}
@@ -158,6 +157,8 @@ class Group extends Component {
         editOption={this.editOption}
         deleteOption={this.props.deleteNote}
         handleClick={this.goToNote}
+        clickWhenEmpty={() => this.setState({ openAddDialog: true })}
+        labelWhenEmpty="Add Note"
       />
       </div>
     )

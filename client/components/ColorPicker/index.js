@@ -10,7 +10,7 @@ class ColorPickerField extends Component {
   render() {
     return (
       <ChromePicker
-        color={this.props.color}
+        color={this.props.color||"#000"}
         onChangeComplete={this.props.changeColor}
       />
     )

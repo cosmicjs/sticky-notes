@@ -9,7 +9,7 @@ class Home extends Component {
     this.state = {
       title: "",
       content: "",
-      color: "#fff",
+      color: "#000",
       selectedGroup: null,
       openAddDialog: false,
       openEditDialog: false,
@@ -114,6 +114,8 @@ class Home extends Component {
           editOption={this.editOption}
           deleteOption={this.props.deleteGroup}
           handleClick={this.goToNoteGroup}
+          clickWhenEmpty={() => this.setState({ openAddDialog: true })}
+          labelWhenEmpty="Add Group"
         />
       }
       </div>

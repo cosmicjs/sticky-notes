@@ -5,7 +5,8 @@ class StickyNotes extends Component {
 
 
   render() {
-    const { options } = this.props;
+    const { options, labelWhenEmpty } = this.props;
+
     return (
       <NoteListWrapper>
         {
@@ -24,6 +25,13 @@ class StickyNotes extends Component {
               </Note>
             </NoteWrapper>
           })
+        }
+        {
+          options.size === 0 && <div className="text-center">
+          <button onClick={this.props.clickWhenEmpty} className="btn btn-primary btn-lg">
+            <i className="fa fa-plus"></i> {labelWhenEmpty}
+          </button>
+          </div>
         }
       </NoteListWrapper>
     )
