@@ -29,8 +29,8 @@ Edit the `client/config.js` file to make sure it's connected to your Cosmic JS B
 export default {
   bucket: {
     slug: process.env.COSMIC_BUCKET || 'sticky-notes',
-    read_key: "",
-    write_key: "",
+    read_key: '',
+    write_key: '',
   }
 }
 ```
