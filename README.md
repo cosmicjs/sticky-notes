@@ -1,4 +1,7 @@
 # Sticky Notes
+![Image](https://cosmicjs.com/uploads/ab94dae0-86a3-11e7-9e71-f38c5011d624-sticky-notes-1.png)
+[View Demo](https://cosmicjs.com)
+
 This note app is powered by [Cosmic JS](https://cosmicjs.com) and built using React and Redux.  It connects to the Cosmic JS API to add / edit / delete notes  as well as attached media.
 
 ## Getting Started
