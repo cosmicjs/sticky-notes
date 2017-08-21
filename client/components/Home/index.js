@@ -61,9 +61,9 @@ class Home extends Component {
     return (
       <div className="container-fluid">
       <div className="row">
-        <button style={{ margin: "20px" }} className="btn btn-primary btn-lg pull-right" onClick={() => this.setState({ openAddDialog: true })}>
+        {groups.size > 0 && <button style={{ margin: "20px" }} className="btn btn-primary btn-lg pull-right" onClick={() => this.setState({ openAddDialog: true })}>
           <i className="fa fa-plus"></i> Add Group
-        </button>
+        </button>}
       <Dialog
         open={openAddDialog}
         closeDialog={() => this.setState({ openAddDialog: false })}
