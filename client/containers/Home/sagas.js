@@ -54,6 +54,7 @@ export function* addNoteGroup(action) {
     content: action.group.content,
     metafields: [{
       value: action.group.color,
+      type: 'text',
       key: "color",
       title: "Color",
     }],
@@ -74,6 +75,7 @@ export function* editNoteGroup(action) {
     title: action.group.title,
     content: action.group.content,
     metafields: [{
+      type: 'text',
       value: action.group.color,
       key: "color",
       title: "Color",
