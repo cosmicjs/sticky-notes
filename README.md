@@ -5,7 +5,7 @@
 This note app is built using React, Redux and powered by [Cosmic JS](https://cosmicjs.com).  It connects to the Cosmic JS API to add / edit / delete notes as well as attach media.
 
 ## Getting Started
-[Log in to Cosmic JS](https://cosmicjs.com) and create a Bucket to store notes.
+[Log in to Cosmic JS](https://cosmicjs.com) and create a Bucket to store notes.  Then clone the codebase locally:
 ```
 git clone https://github.com/cosmicjs/sticky-notes
 cd sticky-notes
